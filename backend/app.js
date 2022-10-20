@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const mysql = require("mysql");
 const path = require("path");
-// const pool = require("./config/db");
 
 const app = express();
 
@@ -12,10 +11,7 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
 });
-app.set("view engine", "hbs");
 
-const publicDirectory = path.join(__dirname, "./frontend/src");
-app.use(express.static(publicDirectory));
 db.connect((error) => {
   if (error) {
     console.log(error);
