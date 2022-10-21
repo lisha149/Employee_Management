@@ -13,9 +13,12 @@ frontend/node_modules
 # production
 /build
 
+#config 
+backend/config/config.json/
 # misc
 .DS_Store
 .env.local
+.env
 .env.development.local
 .env.test.local
 .env.production.local
