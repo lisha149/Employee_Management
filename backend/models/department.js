@@ -14,12 +14,14 @@ module.exports = (sequelize, Sequelize) => {
     createdAt: {
       field: "created_at",
       type: Sequelize.DATE,
-      defaultValue: Sequelize.NOW,
+      defaultValue: sequelize.fn("NOW"),
+      allowNull: false,
     },
     updatedAt: {
       field: "updated_at",
       type: Sequelize.DATE,
-      defaultValue: Sequelize.NOW,
+      defaultValue: sequelize.fn("NOW"),
+      allowNull: false,
     },
   });
   return departmentSchema;
