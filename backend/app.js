@@ -4,7 +4,8 @@ const express = require("express");
 const db = require("./models");
 const app = express();
 
-// app.use("/user", require("./api_gateways/user_gateway"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const PORT = process.env.PORT || 5000;
 db.sequelize.sync().then(() => {
