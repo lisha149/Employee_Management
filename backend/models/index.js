@@ -52,5 +52,6 @@ sequelize
   });
 
 db.users = require("./user")(sequelize, Sequelize);
+db.departments = require("./department")(sequelize, Sequelize);
 
 module.exports = db;

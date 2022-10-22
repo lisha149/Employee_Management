@@ -3,10 +3,12 @@ const express = require("express");
 const Models = require("./models");
 const bcrypt = require("bcrypt");
 const User = Models.users;
+
 const jwt = require("jsonwebtoken");
 const db = require("./models/index");
 const cors = require("cors");
 var usersRouter = require("./routes/userRoutes");
+var deptRouter = require("./routes/deptRoutes");
 
 const app = express();
 
@@ -61,6 +63,7 @@ app.post("/", async (req, res, next) => {
 });
 //Add users
 app.use("/users", usersRouter);
+app.use("/department", deptRouter);
 
 const PORT = process.env.PORT || 5000;
 db.sequelize.sync().then(() => {
