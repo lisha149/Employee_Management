@@ -16,16 +16,18 @@ app.use(express.static(path.join(__dirname, "static")));
 
 //Login API
 app.post("/", async (req, res, next) => {
-  const user = await User.findOne({
-    where: {
-      email: req.body.user_email,
-    },
-  });
+  const email = req.body.user_email;
+  const password = req.body.user_password;
+  if (email == "" || password == "") {
+    res
+      .status(400)
+      .json({ error: "Email address or password cannot be empty" });
+  }
+
+  const user = await User.findOne({ email });
+
   if (user) {
-    const password_valid = await bcrypt.compare(
-      req.body.user_password,
-      user.password
-    );
+    const password_valid = await bcrypt.compare(password, user.password);
     if (password_valid) {
       token = jwt.sign(
         {
