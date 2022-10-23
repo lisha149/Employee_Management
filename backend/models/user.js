@@ -1,7 +1,6 @@
-const bcrypt = require("bcrypt");
 module.exports = (sequelize, Sequelize) => {
   const userSchema = sequelize.define("Users", {
-    user_id: {
+    id: {
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
@@ -27,19 +26,19 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.BOOLEAN,
       defaultValue: false,
     },
-    dept_id: {
+    department_id: {
       type: Sequelize.INTEGER,
       allowNull: true,
       references: {
         model: "departments", // the table name
-        key: "dept_id", // the PK column name
+        key: "id", // the PK column name
       },
     },
     is_password_changed: {
       type: Sequelize.BOOLEAN,
       defaultValue: false,
     },
-    user_status: {
+    status: {
       type: Sequelize.BOOLEAN,
       defaultValue: true,
     },

@@ -10,22 +10,22 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       references: {
         model: "users", // the table name
-        key: "user_id", // the PK column name
+        key: "id", // the PK column name
       },
     },
-    leave_reason: {
+    reason: {
       type: Sequelize.TEXT,
       allowNull: false,
     },
     start_date: {
-      type: Sequelize.DATE,
+      type: Sequelize.DATEONLY,
       allowNull: false,
     },
     end_date: {
-      type: Sequelize.DATE,
+      type: Sequelize.DATEONLY,
       allowNull: false,
     },
-    leave_status: {
+    status: {
       type: Sequelize.ENUM("Approved", "Rejected", "Pending"),
       defaultValue: "Pending",
     },

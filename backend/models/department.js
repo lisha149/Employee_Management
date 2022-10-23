@@ -1,11 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
   const departmentSchema = sequelize.define("Departments", {
-    dept_id: {
+    id: {
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    dept_title: {
+    title: {
       type: Sequelize.STRING,
       allowNull: false,
     },

@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 });
 
 //Login API
-app.post("/", async (req, res, next) => {
+app.post("/login", async (req, res, next) => {
   if (req.body.email == "" || req.body.password == "") {
     res
       .status(400)
@@ -31,7 +31,6 @@ app.post("/", async (req, res, next) => {
 
   const user = await User.findOne({
     where: { email: req.body.email },
-    raw: true,
   });
 
   if (user) {
@@ -44,14 +43,16 @@ app.post("/", async (req, res, next) => {
           first_name: req.body.first_name,
           last_name: req.body.last_name,
           email: req.body.email,
+          is_admin: req.body.is_admin,
         },
         process.env.JWT_SECRET
       );
       res.status(200).json({
-        user_id: user.user_id,
+        id: user.id,
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
+        is_admin: user.is_admin,
         token: token,
       });
     } else {
@@ -62,7 +63,7 @@ app.post("/", async (req, res, next) => {
   }
 });
 //Add users
-app.use("/users", usersRouter);
+app.use("/employee", usersRouter);
 app.use("/department", deptRouter);
 
 const PORT = process.env.PORT || 5000;
