@@ -14,9 +14,6 @@ app.get("/", (req, res) => {
   res.send("API is running");
 });
 
-//Login API
-// app.use("/login", usersRouter);
-
 //Add users
 app.use("/api", usersRouter);
 app.use("/department", deptRouter);
