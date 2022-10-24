@@ -4,7 +4,8 @@ const express = require("express");
 const db = require("./models/index");
 var usersRouter = require("./routes/userRoutes");
 var deptRouter = require("./routes/deptRoutes");
-
+var leaveRouter = require("./routes/leaveRoutes");
+const { notFound } = require("./middleware/error");
 const app = express();
 
 app.use(express.json());
@@ -16,7 +17,10 @@ app.get("/", (req, res) => {
 
 //Add users
 app.use("/api", usersRouter);
-app.use("/department", deptRouter);
+app.use("/api", deptRouter);
+app.use("/api/employee", leaveRouter);
+
+app.use(notFound);
 
 const PORT = process.env.PORT || 5000;
 db.sequelize.sync().then(() => {

@@ -4,11 +4,13 @@ const Models = require("../models");
 const bcrypt = require("bcrypt");
 const User = Models.users;
 const jwt = require("jsonwebtoken");
+const generateToken = require("../utils/generateToken");
 //Login API
 router.post("/login", async (req, res, next) => {
   if (req.body.email == "" || req.body.password == "") {
-    res.status(400);
-    throw new Error("Email address or password cannot be empty");
+    res
+      .status(400)
+      .json({ message: "Email address or password cannot be empty" });
   }
 
   const user = await User.findOne({
@@ -19,29 +21,19 @@ router.post("/login", async (req, res, next) => {
     const password = req.body.password;
     const password_valid = await bcrypt.compare(password, user.password);
     if (password_valid) {
-      let token = jwt.sign(
-        {
-          user_id: req.body.user_id,
-          first_name: req.body.first_name,
-          last_name: req.body.last_name,
-          email: req.body.email,
-          is_admin: req.body.is_admin,
-        },
-        process.env.JWT_SECRET
-      );
       res.status(200).json({
         id: user.id,
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
         is_admin: user.is_admin,
-        token: token,
+        token: generateToken(user.id),
       });
     } else {
-      res.status(400).json({ error: "Password Incorrect" });
+      res.status(400).json({ message: "Password Incorrect" });
     }
   } else {
-    res.status(404).json({ error: "User does not exist" });
+    res.status(404).json({ message: "User does not exist" });
   }
 });
 //Get adminPage
@@ -51,11 +43,10 @@ router.post("/login", async (req, res, next) => {
 
 //Add Employee
 router.post("/employee", async (req, res, next) => {
-  const userExists = await User.findOne({ email });
+  const userExists = await User.findOne({ where: { email: req.body.email } });
 
   if (userExists) {
-    res.status(404);
-    throw new Error("User already exists");
+    res.status(404).json({ message: "User already exits" });
   }
 
   const salt = await bcrypt.genSalt(10);
@@ -71,12 +62,13 @@ router.post("/employee", async (req, res, next) => {
   if (created_user) {
     res.status(201).json({
       id: created_user.id,
-      name: created_user.name,
+      first_name: created_user.first_name,
+      last_name: created_user.last_name,
       email: created_user.email,
+      token: generateToken(created_user.id),
     });
   } else {
-    res.status(401);
-    throw new Error("User not found");
+    res.status(404).json({ message: "Not Found" });
   }
 });
 
@@ -110,8 +102,7 @@ router.put("/employee/:id", async (req, res, next) => {
     const updatedEmployee = await employee.save();
     res.json(updatedEmployee);
   } else {
-    res.status(404);
-    throw new Error("Employee not found");
+    res.status(404).json({ message: "Employee not found" });
   }
 });
 

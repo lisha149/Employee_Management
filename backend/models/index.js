@@ -53,5 +53,6 @@ sequelize
 
 db.users = require("./user")(sequelize, Sequelize);
 db.departments = require("./department")(sequelize, Sequelize);
+db.leaves = require("./leave")(sequelize, Sequelize);
 
 module.exports = db;

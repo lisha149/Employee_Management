@@ -3,12 +3,54 @@ var router = express.Router();
 const Models = require("./../models");
 const Department = Models.departments;
 
-router.post("/", async (req, res, next) => {
+//Create
+router.post("/department", async (req, res, next) => {
   var dept = {
     title: req.body.title,
   };
   created_department = await Department.create(dept);
   res.status(201).json(created_department);
+});
+router.get("/department", async (req, res, next) => {
+  const departments = await Department.findAll();
+  res.json(departments);
+});
+//Get department by id
+router.get("/department/:id", async (req, res, next) => {
+  const department = await Department.findByPk(req.params.id);
+
+  if (department) {
+    res.json(department);
+  } else {
+    res.status(404).json({ message: "Department not found" });
+  }
+});
+
+//Edit department
+router.put("/department/:id", async (req, res, next) => {
+  const { title } = req.body;
+
+  const department = await Department.findByPk(req.params.id);
+
+  if (department) {
+    department.title = title;
+    const updatedDepartment = await department.save();
+    res.json(updatedDepartment);
+  } else {
+    res.status(404).json({ message: "Department not found" });
+  }
+});
+
+//Delete department
+router.delete("/department/:id", async (req, res) => {
+  const department = await Department.findByPk(req.params.id);
+
+  if (department) {
+    await department.destroy();
+    res.json({ message: "Department Deleted" });
+  } else {
+    res.status(404).json({ message: "Department not found" });
+  }
 });
 
 module.exports = router;
