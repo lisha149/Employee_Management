@@ -50,7 +50,9 @@ const isAdmin = async (req, res, next) => {
         });
         console.log(user);
         if (!user) {
-          return res.status(401).send({ message: "Not an admin" });
+          return res
+            .status(401)
+            .send({ message: "You are not authorize to perform this action" });
         }
         next();
       }
@@ -83,7 +85,9 @@ const isEmployee = async (req, res, next) => {
         });
         console.log(user);
         if (!user) {
-          return res.status(401).send({ message: "Not an employee" });
+          return res.status(401).send({
+            message: " You are not authorize to perform this action",
+          });
         }
         next();
       }
