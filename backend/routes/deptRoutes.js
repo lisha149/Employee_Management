@@ -2,21 +2,21 @@ var express = require("express");
 var router = express.Router();
 const Models = require("./../models");
 const Department = Models.departments;
-
+const { isAuth, isAdmin } = require("../middleware/authMiddleware");
 //Create
-router.post("/department", async (req, res, next) => {
+router.post("/department", isAdmin, async (req, res, next) => {
   var dept = {
     title: req.body.title,
   };
   created_department = await Department.create(dept);
   res.status(201).json(created_department);
 });
-router.get("/department", async (req, res, next) => {
+router.get("/department", isAuth, async (req, res, next) => {
   const departments = await Department.findAll();
   res.json(departments);
 });
 //Get department by id
-router.get("/department/:id", async (req, res, next) => {
+router.get("/department/:id", isAuth, async (req, res, next) => {
   const department = await Department.findByPk(req.params.id);
 
   if (department) {
@@ -27,7 +27,7 @@ router.get("/department/:id", async (req, res, next) => {
 });
 
 //Edit department
-router.put("/department/:id", async (req, res, next) => {
+router.put("/department/:id", isAdmin, async (req, res, next) => {
   const { title } = req.body;
 
   const department = await Department.findByPk(req.params.id);
@@ -42,7 +42,7 @@ router.put("/department/:id", async (req, res, next) => {
 });
 
 //Delete department
-router.delete("/department/:id", async (req, res) => {
+router.delete("/department/:id", isAdmin, async (req, res) => {
   const department = await Department.findByPk(req.params.id);
 
   if (department) {

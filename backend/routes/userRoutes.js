@@ -3,8 +3,8 @@ var router = express.Router();
 const Models = require("../models");
 const bcrypt = require("bcrypt");
 const User = Models.users;
-const jwt = require("jsonwebtoken");
 const generateToken = require("../utils/generateToken");
+const { isAuth, isAdmin } = require("../middleware/authMiddleware");
 //Login API
 router.post("/login", async (req, res, next) => {
   if (req.body.email == "" || req.body.password == "") {
@@ -37,12 +37,11 @@ router.post("/login", async (req, res, next) => {
   }
 });
 //Get adminPage
-// router.get("/is-admin", isAdmin, async (req, res, next) => {
-//
-// });
-
+router.get("/adminPanel", isAdmin, async (req, res, next) => {
+  res.json({ message: "Admin Page" });
+});
 //Add Employee
-router.post("/employee", async (req, res, next) => {
+router.post("/employee", isAdmin, async (req, res, next) => {
   const userExists = await User.findOne({ where: { email: req.body.email } });
 
   if (userExists) {
@@ -73,12 +72,12 @@ router.post("/employee", async (req, res, next) => {
 });
 
 //View Employee
-router.get("/employee", async (req, res, next) => {
+router.get("/employee", isAuth, async (req, res, next) => {
   const employees = await User.findAll();
   res.json(employees);
 });
 //Get Employee by id
-router.get("/employee/:id", async (req, res, next) => {
+router.get("/employee/:id", isAuth, async (req, res, next) => {
   const employee = await User.findByPk(req.params.id);
 
   if (employee) {
@@ -89,7 +88,7 @@ router.get("/employee/:id", async (req, res, next) => {
 });
 
 //Edit Employee
-router.put("/employee/:id", async (req, res, next) => {
+router.put("/employee/:id", isAdmin, async (req, res, next) => {
   const { first_name, last_name, department_id, status } = req.body;
 
   const employee = await User.findByPk(req.params.id);
@@ -107,7 +106,7 @@ router.put("/employee/:id", async (req, res, next) => {
 });
 
 //Delete Employee
-router.delete("/employee/:id", async (req, res) => {
+router.delete("/employee/:id", isAdmin, async (req, res) => {
   const employee = await User.findByPk(req.params.id);
 
   if (employee) {
