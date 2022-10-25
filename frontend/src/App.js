@@ -29,6 +29,7 @@ function App() {
             <Sidebar />
             <Routes>
               <Route path="/" element={<Main />} />
+              <Route path="/employee" element={<Register />} />
             </Routes>
           </div>
         </>
