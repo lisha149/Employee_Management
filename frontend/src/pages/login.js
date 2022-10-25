@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Paper, Avatar, TextField, Button } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Error from "../components/ErrorMessage";
 import * as Yup from "yup";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../actions/userActions";
+
 const Login = () => {
-  const [error, setError] = useState(false);
+  // const [error, setError] = useState(false);
   const paperStyle = {
     padding: 20,
     height: "70vh",
@@ -25,13 +28,20 @@ const Login = () => {
     password: Yup.string().required("Required"),
   });
 
-  const onSubmit = async (values) => {
-    const data = { email: values.email, password: values.password };
-    await axios.post("/api/login", data).then((res) => {
-      console.log(res.data);
-      localStorage.setItem("userInfo", JSON.stringify(res.data));
-    });
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { error, userInfo } = userLogin;
+
+  const submitHandler = (values) => {
+    dispatch(login(values));
   };
+  const navigate = useNavigate;
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/home");
+    }
+  }, [navigate, userInfo]);
 
   return (
     <Grid>
@@ -45,7 +55,7 @@ const Login = () => {
         {error && <Error>{error}</Error>}
         <Formik
           initialValues={initialValues}
-          onSubmit={onSubmit}
+          onSubmit={submitHandler}
           validationSchema={validationSchema}
         >
           {(props) => (

@@ -1,7 +1,18 @@
 import "./Sidebar.css";
 import logo from "../../assets/logo.png";
-
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../actions/userActions";
+import { Link } from "@mui/material";
 const Sidebar = ({ sidebarOpen, closeSidebar }) => {
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  const navigate = useNavigate();
+  const logoutHandler = () => {
+    dispatch(logout());
+    navigate("/");
+  };
   return (
     <div className={sidebarOpen ? "sidebar_responsive" : ""} id="sidebar">
       <div className="sidebar__title">
@@ -20,45 +31,47 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
       <div className="sidebar__menu">
         <div className="sidebar__link active_menu_link">
           <i className="fa fa-home"></i>
-          <a href="#">Dashboard</a>
+          <Link href="#">Dashboard</Link>
         </div>
 
         <div className="sidebar__link">
           <i class="fa fa-users"></i>
-          <a href="/employee">Add Employee</a>
+          <Link href="/employee">Add Employee</Link>
         </div>
         <div className="sidebar__link">
           <i class="fa fa-eye"></i>
-          <a href="#">View emplyees</a>
+          <Link href="#">View emplyees</Link>
         </div>
         <div className="sidebar__link">
           <i className="fa fa-plus"></i>
-          <a href="#">Add Department</a>
+          <Link href="#">Add Department</Link>
         </div>
         <div className="sidebar__link">
           <i className="fa fa-unlock"></i>
-          <a href="#">View Departments</a>
+          <Link href="#">View Departments</Link>
         </div>
         <h2>LEAVE</h2>
         <div className="sidebar__link">
           <i className="fa fa-question"></i>
-          <a href="#">Requests</a>
+          <Link href="#">Requests</Link>
         </div>
         <div className="sidebar__link">
           <i className="fa fa-sign-out"></i>
-          <a href="#">Leave Policy</a>
+          <Link href="#">Leave Policy</Link>
         </div>
         <div className="sidebar__link">
           <i className="fa fa-calendar-check-o"></i>
-          <a href="#">Special Days</a>
+          <Link href="#">Special Days</Link>
         </div>
         <div className="sidebar__link">
           <i className="fa fa-files-o"></i>
-          <a href="#">Apply for leave</a>
+          <Link href="#">Apply for leave</Link>
         </div>
         <div className="sidebar__logout">
           <i className="fa fa-power-off"></i>
-          <a href="#">Log out</a>
+          <Link href="/" onClick={logoutHandler}>
+            Log out
+          </Link>
         </div>
       </div>
     </div>

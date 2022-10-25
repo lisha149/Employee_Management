@@ -1,8 +1,11 @@
 import "./Main.css";
 import hello from "../../assets/hello.svg";
-// import Chart from "../charts/Chart";
-
+import { useSelector } from "react-redux";
+import { login } from "../../actions/userActions";
 const Main = () => {
+  // const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   return (
     <main>
       <div className="main__container">
@@ -11,7 +14,7 @@ const Main = () => {
         <div className="main__title">
           <img src={hello} alt="hello" />
           <div className="main__greeting">
-            <h1>Hello ADMIN...NAME</h1>
+            <h1>Hello {userInfo.first_name}</h1>
             <p>Welcome to your admin dashboard</p>
           </div>
         </div>
