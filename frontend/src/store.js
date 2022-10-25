@@ -1,4 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { employeeCountReducer } from "./reducers/employeeReducer";
+import { departmentCountReducer } from "./reducers/departmentReducer";
 import { userLoginReducer } from "./reducers/userReducers";
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
@@ -12,6 +14,8 @@ const preloadedState = {
 const store = configureStore({
   reducer: {
     userLogin: userLoginReducer,
+    employeeCount: employeeCountReducer,
+    departmentCount: departmentCountReducer,
   },
   preloadedState,
 });

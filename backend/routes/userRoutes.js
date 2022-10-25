@@ -76,6 +76,10 @@ router.get("/employee", isAuth, async (req, res, next) => {
   const employees = await User.findAll();
   res.json(employees);
 });
+router.get("/employee-count", isAuth, async (req, res, next) => {
+  const count = await User.count();
+  res.json(count);
+});
 //Get Employee by id
 router.get("/employee/:id", isAuth, async (req, res, next) => {
   const employee = await User.findByPk(req.params.id);

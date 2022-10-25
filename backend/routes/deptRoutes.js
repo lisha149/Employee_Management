@@ -15,6 +15,11 @@ router.get("/department", isAuth, async (req, res, next) => {
   const departments = await Department.findAll();
   res.json(departments);
 });
+//count
+router.get("/department-count", isAuth, async (req, res, next) => {
+  const count = await Department.count();
+  res.json(count);
+});
 //Get department by id
 router.get("/department/:id", isAuth, async (req, res, next) => {
   const department = await Department.findByPk(req.params.id);

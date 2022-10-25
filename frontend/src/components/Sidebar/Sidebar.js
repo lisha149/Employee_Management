@@ -35,11 +35,11 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
         </div>
 
         <div className="sidebar__link">
-          <i class="fa fa-users"></i>
+          <i className="fa fa-users"></i>
           <Link href="/employee">Add Employee</Link>
         </div>
         <div className="sidebar__link">
-          <i class="fa fa-eye"></i>
+          <i className="fa fa-eye"></i>
           <Link href="#">View emplyees</Link>
         </div>
         <div className="sidebar__link">
