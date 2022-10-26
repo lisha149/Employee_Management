@@ -1,5 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { employeeCountReducer } from "./reducers/employeeReducer";
+import {
+  employeeCountReducer,
+  employeeCreateReducer,
+  employeeDeleteReducer,
+  employeeListReducer,
+} from "./reducers/employeeReducer";
 import { departmentCountReducer } from "./reducers/departmentReducer";
 import { userLoginReducer } from "./reducers/userReducers";
 
@@ -16,6 +21,9 @@ const store = configureStore({
     userLogin: userLoginReducer,
     employeeCount: employeeCountReducer,
     departmentCount: departmentCountReducer,
+    employeeCreate: employeeCreateReducer,
+    employeeList: employeeListReducer,
+    employeeDelete: employeeDeleteReducer,
   },
   preloadedState,
 });

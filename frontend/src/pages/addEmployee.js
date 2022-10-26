@@ -10,6 +10,10 @@ import {
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { addEmployees } from "../actions/employeeActions";
+import { useNavigate } from "react-router-dom";
+
 const Register = () => {
   const paperStyle = {
     padding: 20,
@@ -36,9 +40,19 @@ const Register = () => {
       .required("Required"),
   });
 
-  const onSubmit = (values) => {
+  const dispatch = useDispatch();
+
+  const createEmployee = useSelector((state) => state.createEmployee);
+  const employee = createEmployee;
+
+  const navigate = useNavigate();
+  const submitHandler = (values) => {
     console.log(values);
+    dispatch(addEmployees(values));
+    navigate("/employee");
+    window.location.reload();
   };
+
   return (
     <Grid>
       <Paper elevation={10} style={paperStyle}>
@@ -46,7 +60,7 @@ const Register = () => {
           <Avatar style={avatarStyle}>
             <AddCircleOutlineIcon />
           </Avatar>
-          <h6 style={{ margin: 0 }}>Sign Up</h6>
+          <h3 style={{ margin: 0 }}>Sign Up</h3>
           <Typography variant="caption" gutterBottom>
             Please fill this form to add an employee!
           </Typography>
@@ -54,7 +68,7 @@ const Register = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={onSubmit}
+          onSubmit={submitHandler}
         >
           {(props) => (
             <Form>
@@ -67,6 +81,7 @@ const Register = () => {
                     label="First Name"
                     name="firstname"
                     placeholder="Enter first name"
+                    autoComplete="off"
                     helperText={<ErrorMessage name="firstname" />}
                   />
                 </Grid>
@@ -78,7 +93,7 @@ const Register = () => {
                     label="Last Name"
                     name="lastname"
                     placeholder="Enter last name"
-                    helperText={<ErrorMessage name="name" />}
+                    helperText={<ErrorMessage name="lastname" />}
                   />
                 </Grid>
               </Grid>
@@ -91,6 +106,7 @@ const Register = () => {
                 type="email"
                 name="email"
                 placeholder="Enter your email"
+                autoComplete="current-email"
                 helperText={<ErrorMessage name="email" />}
               />
               <Field
@@ -101,6 +117,7 @@ const Register = () => {
                 type="password"
                 name="password"
                 placeholder="Enter your password"
+                autoComplete="current-password"
                 helperText={<ErrorMessage name="password" />}
               />
               <Button
@@ -109,7 +126,6 @@ const Register = () => {
                 disabled={props.isSubmitting}
                 color="primary"
                 style={btnstyle}
-                fullWidth
               >
                 {props.isSubmitting ? "Loading" : "Sign up"}
               </Button>

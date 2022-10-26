@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Grid, Paper, Avatar, TextField, Button } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import Error from "../components/ErrorMessage";
+import Error from "../components/Error";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,7 +35,7 @@ const Login = () => {
   const submitHandler = (values) => {
     dispatch(login(values));
   };
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (userInfo) {

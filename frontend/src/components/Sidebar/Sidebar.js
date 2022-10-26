@@ -12,8 +12,6 @@ import { logout } from "../../actions/userActions";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "@mui/material";
-import Slide from "@mui/material/Slide";
-import { TransitionProps } from "@mui/material/transitions";
 
 const Sidebar = ({ sidebarOpen, closeSidebar }) => {
   const dispatch = useDispatch();
@@ -36,6 +34,8 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const [activeMenu, setActiveMenu] = useState();
   return (
     <div className={sidebarOpen ? "sidebar_responsive" : ""} id="sidebar">
       <div className="sidebar__title">
@@ -52,18 +52,25 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
       </div>
 
       <div className="sidebar__menu">
-        <div className="sidebar__link active_menu_link">
+        <div className="sidebar__link">
           <i className="fa fa-home"></i>
-          <Link href="#">Dashboard</Link>
+          <Link
+            href="/"
+            id="dashboard"
+            className={
+              activeMenu == "dashboard" ? "active_menu_link" : "menu_link"
+            }
+            onClick={() => {
+              setActiveMenu("dashboard");
+            }}
+          >
+            Dashboard
+          </Link>
         </div>
 
         <div className="sidebar__link">
           <i className="fa fa-users"></i>
-          <Link href="/employee">Add Employee</Link>
-        </div>
-        <div className="sidebar__link">
-          <i className="fa fa-eye"></i>
-          <Link href="#">View emplyees</Link>
+          <Link href="/employee">Employees</Link>
         </div>
         <div className="sidebar__link">
           <i className="fa fa-plus"></i>
