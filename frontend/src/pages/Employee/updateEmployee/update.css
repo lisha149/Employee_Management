@@ -1,0 +1,13 @@
+.updateEmployeeContainer {
+  display: flex;
+  flex-direction: column;
+}
+.updateEmployeeContainer .form-group {
+  margin: 15px 0;
+}
+Button {
+  margin-top: 10px;
+}
+Form.Label {
+  margin-top: 2px;
+}

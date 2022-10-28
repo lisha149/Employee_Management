@@ -49,3 +49,16 @@ export const employeeDeleteReducer = (state = {}, action) => {
       return state;
   }
 };
+export const employeeUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case "EMPLOYEES_UPDATE_REQUEST":
+      return { loading: true };
+    case "EMPLOYEES_UPDATE_SUCCESS":
+      return { loading: false, success: true };
+    case "EMPLOYEES_UPDATE_FAIL":
+      return { loading: false, error: action.payload, success: false };
+
+    default:
+      return state;
+  }
+};

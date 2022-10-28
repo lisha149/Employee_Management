@@ -127,3 +127,43 @@ export const addEmployees = (values) => async (dispatch, getState) => {
     });
   }
 };
+
+export const updateEmployee =
+  (id, first_name, last_name, email, department_id) =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: "EMPLOYEES_UPDATE_REQUEST",
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        `/api/employee/${id}`,
+        { first_name, last_name, email, department_id },
+        config
+      );
+
+      dispatch({
+        type: "EMPLOYEES_UPDATE_SUCCESS",
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: "EMPLOYEES_UPDATE_FAIL",
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

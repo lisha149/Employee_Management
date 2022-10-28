@@ -1,0 +1,13 @@
+.updateDepartmentContainer {
+  display: flex;
+  flex-direction: column;
+}
+.updateDepartmentContainer .form-group {
+  margin: 15px 0;
+}
+Button {
+  margin-top: 10px;
+}
+Form.Label {
+  margin-top: 2px;
+}

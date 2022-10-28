@@ -11,7 +11,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { addEmployees } from "../actions/employeeActions";
+import { addEmployees } from "../../actions/employeeActions";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {

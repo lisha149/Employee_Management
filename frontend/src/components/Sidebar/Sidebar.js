@@ -67,36 +67,50 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
             Dashboard
           </Link>
         </div>
+        {userInfo.is_admin === true ? (
+          <div>
+            <div className="sidebar__link">
+              <i className="fa fa-users"></i>
+              <Link href="/employee">Employees</Link>
+            </div>
+            <div className="sidebar__link">
+              <i className="fa fa-plus"></i>
+              <Link href="/department">Departments</Link>
+            </div>
+            <h2>Leaves</h2>
+            <div className="sidebar__link">
+              <i className="fa fa-question"></i>
+              <Link href="#">Requests</Link>
+            </div>
+            <div className="sidebar__link">
+              <i className="fa fa-sign-out"></i>
+              <Link href="#">Leaves</Link>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <h2>TEAM</h2>
+            <div className="sidebar__link">
+              <i className="fa fa-users"></i>
+              <Link href="#">Requests</Link>
+            </div>
+            <h2>LEAVE</h2>
+            <div className="sidebar__link">
+              <i className="fa fa-files-o"></i>
+              <Link href="/apply-for-leave">Apply for leave</Link>
+            </div>
 
-        <div className="sidebar__link">
-          <i className="fa fa-users"></i>
-          <Link href="/employee">Employees</Link>
-        </div>
-        <div className="sidebar__link">
-          <i className="fa fa-plus"></i>
-          <Link href="#">Add Department</Link>
-        </div>
-        <div className="sidebar__link">
-          <i className="fa fa-unlock"></i>
-          <Link href="#">View Departments</Link>
-        </div>
-        <h2>LEAVE</h2>
-        <div className="sidebar__link">
-          <i className="fa fa-question"></i>
-          <Link href="#">Requests</Link>
-        </div>
-        <div className="sidebar__link">
-          <i className="fa fa-sign-out"></i>
-          <Link href="#">Leave Policy</Link>
-        </div>
-        <div className="sidebar__link">
-          <i className="fa fa-calendar-check-o"></i>
-          <Link href="#">Special Days</Link>
-        </div>
-        <div className="sidebar__link">
-          <i className="fa fa-files-o"></i>
-          <Link href="#">Apply for leave</Link>
-        </div>
+            <div className="sidebar__link">
+              <i className="fa fa-sign-out"></i>
+              <Link href="#">Leave Policy</Link>
+            </div>
+            <div className="sidebar__link">
+              <i className="fa fa-calendar-check-o"></i>
+              <Link href="#">Special Days</Link>
+            </div>
+          </div>
+        )}
+
         <div className="sidebar__logout">
           <i className="fa fa-power-off"></i>
           <a href="#" role="button" onClick={handleClickOpen}>

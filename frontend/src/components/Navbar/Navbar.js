@@ -9,9 +9,8 @@ const Navbar = ({ sidebarOpen, openSidebar }) => {
         <i className="fa fa-bars" aria-hidden="true"></i>
       </div>
       <div className="navbar__left">
-        <Link href="#">Employee</Link>
-        <Link className="active_link" href="#">
-          Admin
+        <Link className="active_link" href="/">
+          Employee Management System
         </Link>
       </div>
       <div className="navbar__right">
