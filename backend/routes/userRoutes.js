@@ -27,6 +27,7 @@ router.post("/login", async (req, res, next) => {
         last_name: user.last_name,
         email: user.email,
         is_admin: user.is_admin,
+        dob: user.dob,
         token: generateToken(user.id),
       });
     } else {
