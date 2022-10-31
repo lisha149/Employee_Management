@@ -5,6 +5,8 @@ const db = require("./models/index");
 var usersRouter = require("./routes/userRoutes");
 var deptRouter = require("./routes/deptRoutes");
 var leaveRouter = require("./routes/leaveRoutes");
+var profileRouter = require("./routes/profileRoutes");
+
 const { notFound } = require("./middleware/error");
 const app = express();
 
@@ -19,6 +21,7 @@ app.get("/", (req, res) => {
 app.use("/api", usersRouter);
 app.use("/api", deptRouter);
 app.use("/api/employee", leaveRouter);
+app.use("/api/employee", profileRouter);
 
 app.use(notFound);
 
