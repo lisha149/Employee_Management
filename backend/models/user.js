@@ -54,9 +54,6 @@ module.exports = (sequelize, Sequelize) => {
       defaultValue: sequelize.fn("NOW"),
       allowNull: false,
     },
-    dob: {
-      type: Sequelize.DATEONLY,
-    },
   });
   return userSchema;
 };
