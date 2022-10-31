@@ -27,7 +27,6 @@ router.post("/login", async (req, res, next) => {
         last_name: user.last_name,
         email: user.email,
         is_admin: user.is_admin,
-        dob: user.dob,
         token: generateToken(user.id),
       });
     } else {
@@ -57,7 +56,6 @@ router.post("/employee", isAdmin, async (req, res, next) => {
     email: req.body.email,
     password: await bcrypt.hash(req.body.password, salt),
     is_admin: req.body.is_admin,
-    dob: req.body.dob,
   };
   created_user = await User.create(usr);
   if (created_user) {
@@ -66,7 +64,6 @@ router.post("/employee", isAdmin, async (req, res, next) => {
       first_name: created_user.first_name,
       last_name: created_user.last_name,
       email: created_user.email,
-      dob: created_user.dob,
       token: generateToken(created_user.id),
     });
   } else {
@@ -96,7 +93,7 @@ router.get("/employee/:id", isAuth, async (req, res, next) => {
 
 //Edit Employee
 router.put("/employee/:id", isAdmin, async (req, res, next) => {
-  const { first_name, last_name, department_id, status, dob } = req.body;
+  const { first_name, last_name, department_id, status } = req.body;
 
   const employee = await User.findByPk(req.params.id);
 
@@ -104,9 +101,7 @@ router.put("/employee/:id", isAdmin, async (req, res, next) => {
     (employee.first_name = first_name),
       (employee.last_name = last_name),
       (employee.department_id = department_id),
-      (employee.dob = dob);
-
-    employee.status = status;
+      (employee.status = status);
     const updatedEmployee = await employee.save();
     res.json(updatedEmployee);
   } else {

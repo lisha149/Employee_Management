@@ -2,23 +2,37 @@ var express = require("express");
 var router = express.Router();
 const Models = require("./../models");
 const Leave = Models.leaves;
-const { isAdmin, isEmployee } = require("../middleware/authMiddleware");
+const { isAdmin, isAuth } = require("../middleware/authMiddleware");
+// const sendEmail = require("../config/sendEmail");
+const EmailSender = require("../config/sendEmail");
+router.post("/apply-for-leave", isAuth, async (req, res, next) => {
+  let email = req.body.email;
+  let reason = req.body.leave_reason;
+  let start_date = req.body.start_date;
+  let end_date = req.body.end_date;
 
-router.post("/apply-for-leave", isEmployee, async (req, res, next) => {
   var leaveData = {
+    email,
     user_id: req.body.user_id,
-    reason: req.body.leave_reason,
-    start_date: req.body.start_date,
-    end_date: req.body.end_date,
+    reason,
+    start_date,
+    end_date,
   };
   created_leave = await Leave.create(leaveData);
+  EmailSender({
+    email,
+    reason,
+    start_date,
+    end_date,
+  });
   if (created_leave) {
     res.status(201).json({
       id: created_leave.id,
+      user_id: created_leave.user_id,
+      email: created_leave.email,
       reason: created_leave.reason,
       start_date: created_leave.start_date,
       end_date: created_leave.end_date,
-      user_id: created_leave.user_id,
     });
   }
 });
