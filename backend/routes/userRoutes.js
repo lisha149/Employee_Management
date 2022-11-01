@@ -3,8 +3,10 @@ var router = express.Router();
 const Models = require("../models");
 const bcrypt = require("bcrypt");
 const User = Models.users;
+const Profile = Models.profiles;
 const generateToken = require("../utils/generateToken");
 const { isAuth, isAdmin } = require("../middleware/authMiddleware");
+
 //Login API
 router.post("/login", async (req, res, next) => {
   if (req.body.email == "" || req.body.password == "") {
@@ -58,6 +60,11 @@ router.post("/employee", isAdmin, async (req, res, next) => {
     is_admin: req.body.is_admin,
   };
   created_user = await User.create(usr);
+  const created_profile = await Profile.create({
+    user_id: created_user.id,
+    first_name: created_user.first_name,
+    last_name: created_user.last_name,
+  });
   if (created_user) {
     res.status(201).json({
       id: created_user.id,
