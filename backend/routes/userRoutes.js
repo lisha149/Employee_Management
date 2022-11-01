@@ -70,7 +70,6 @@ router.post("/employee", isAdmin, async (req, res, next) => {
     res.status(404).json({ message: "Not Found" });
   }
 });
-
 //View Employee
 router.get("/employee", isAuth, async (req, res, next) => {
   const employees = await User.findAll();

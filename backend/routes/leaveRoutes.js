@@ -3,17 +3,19 @@ var router = express.Router();
 const Models = require("./../models");
 const Leave = Models.leaves;
 const { isAdmin, isAuth } = require("../middleware/authMiddleware");
-// const sendEmail = require("../config/sendEmail");
 const EmailSender = require("../config/sendEmail");
-router.post("/apply-for-leave", isAuth, async (req, res, next) => {
+router.post("/apply-leave", isAuth, async (req, res, next) => {
   let email = req.body.email;
   let reason = req.body.leave_reason;
   let start_date = req.body.start_date;
   let end_date = req.body.end_date;
-
+  let user_id = req.body.user_id;
+  if (reason == "" || start_date == "" || end_date == "") {
+    res.status(400).json({ message: "Fields cannot be empty" });
+  }
   var leaveData = {
     email,
-    user_id: req.body.user_id,
+    user_id,
     reason,
     start_date,
     end_date,
@@ -52,6 +54,5 @@ router.get("/leave/:id", async (req, res, next) => {
     res.status(404).json({ message: "Leave not found" });
   }
 });
-//Get leave by userid
 
 module.exports = router;

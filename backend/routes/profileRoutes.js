@@ -44,9 +44,6 @@ router.post("/profile", isAdmin, async (req, res, next) => {
   if (profile) {
     res.status(201).json({
       id: profile.id,
-      //   first_name: profile.first_name,
-      //   last_name: profile.last_name,
-      //   email: profile.email,
       address: profile.address,
       contact_number: profile.contact_number,
       dob: profile.dob,
