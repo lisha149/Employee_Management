@@ -41,7 +41,7 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
       <div className="sidebar__title">
         <div className="sidebar__img">
           <img src={logo} alt="logo" />
-          <h1>EMS</h1>
+          <h3>EMS</h3>
         </div>
         <i
           onClick={() => closeSidebar()}
@@ -77,7 +77,7 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
               <i className="fa fa-plus"></i>
               <Link href="/department">Departments</Link>
             </div>
-            <h2>Leaves</h2>
+            <h3>Leaves</h3>
             <div className="sidebar__link">
               <i className="fa fa-question"></i>
               <Link href="#">Requests</Link>
@@ -89,12 +89,12 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
           </div>
         ) : (
           <div>
-            <h2>TEAM</h2>
+            <h3>TEAM</h3>
             <div className="sidebar__link">
               <i className="fa fa-users"></i>
-              <Link href="#">Requests</Link>
+              <Link href="#">My Team</Link>
             </div>
-            <h2>LEAVE</h2>
+            <h3>LEAVE</h3>
             <div className="sidebar__link">
               <i className="fa fa-files-o"></i>
               <Link href="/apply-leave">Apply for leave</Link>
