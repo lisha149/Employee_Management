@@ -13,6 +13,7 @@ import GetDepartments from "./pages/Department/viewDepartment/viewDepartment";
 import DepartmentCreate from "./pages/Department/addDepartment";
 import UpdateDepartment from "./pages/Department/updateDepartment/updateDepartment";
 import ApplyLeave from "./pages/Leave/ApplyLeave/ApplyLeave";
+import ViewLeave from "./pages/Leave/ViewLeave/ViewLeave";
 
 function App() {
   const [sidebarOpen, setsidebarOpen] = useState(false);
@@ -41,6 +42,7 @@ function App() {
               <Route path="/employee/:id" element={<UpdateEmployee />} />
               <Route path="/department/:id" element={<UpdateDepartment />} />
               <Route path="/apply-leave" element={<ApplyLeave />} />
+              <Route path="/leave" element={<ViewLeave />} />
             </Routes>
           </div>
         </>

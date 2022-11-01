@@ -7,11 +7,15 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import Dialog from "@mui/material/Dialog";
 import { Button } from "@mui/material";
+import { listLeaves } from "../../../actions/leaveActions";
+import "./ViewLeave.css";
 
 const ViewLeave = () => {
   const dispatch = useDispatch();
   const leaveList = useSelector((state) => state.leaveList);
   const { leaves } = leaveList;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
@@ -24,10 +28,11 @@ const ViewLeave = () => {
 
   const navigate = useNavigate();
   useEffect(() => {
+    dispatch(listLeaves());
     if (!userInfo) {
       navigate("/");
     }
-  }, [dispatch, navigate, userInfo, successDelete]);
+  }, [dispatch, navigate, userInfo]);
 
   return (
     <form className="flex-container">
@@ -35,24 +40,28 @@ const ViewLeave = () => {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Firstname</th>
-            <th>Lastname</th>
+            <th>User ID</th>
             <th>Reason</th>
             <th>Start Date</th>
             <th>End Date</th>
+            <th>Status</th>
+            <th>Rejected Reason</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {leaves?.map((leave) => (
             <tr key={leave.id}>
+              <td>{leave.id}</td>
+              <td>{leave.user_id}</td>
               <td>{leave.reason}</td>
               <td>{leave.start_date}</td>
               <td>{leave.end_date}</td>
-
+              <td>{leave.status}</td>
+              <td>{leave.rejected_reason}</td>
               <td>
                 <Button>Approve</Button>
-                <Button onClick={handleClickOpen}>Delete</Button>
+                <Button onClick={handleClickOpen}>Reject</Button>
                 <Dialog
                   hideBackdrop
                   open={open}

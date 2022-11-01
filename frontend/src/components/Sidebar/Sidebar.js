@@ -80,12 +80,12 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
             <h3>Leaves</h3>
             <div className="sidebar__link">
               <i className="fa fa-question"></i>
-              <Link href="#">Requests</Link>
+              <Link href="/leave">Requests</Link>
             </div>
-            <div className="sidebar__link">
+            {/* <div className="sidebar__link">
               <i className="fa fa-sign-out"></i>
               <Link href="#">Leaves</Link>
-            </div>
+            </div> */}
           </div>
         ) : (
           <div>

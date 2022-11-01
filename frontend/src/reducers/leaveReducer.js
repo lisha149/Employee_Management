@@ -1,4 +1,4 @@
-export const leaveListReducer = (state = { leave: [] }, action) => {
+export const leaveListReducer = (state = { leaves: [] }, action) => {
   switch (action.type) {
     case "LEAVE_LIST_REQUEST":
       return { loading: true };
