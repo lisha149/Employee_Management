@@ -29,6 +29,10 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.ENUM("Approved", "Rejected", "Pending"),
       defaultValue: "Pending",
     },
+    rejected_reason: {
+      type: Sequelize.STRING,
+      allowNull: true,
+    },
     createdAt: {
       field: "created_at",
       type: Sequelize.DATE,
