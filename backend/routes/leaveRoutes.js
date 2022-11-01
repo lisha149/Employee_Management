@@ -58,5 +58,19 @@ router.get("/leave/:id", isAuth, async (req, res, next) => {
     res.status(404).json({ message: "Leave not found" });
   }
 });
+//Approved
+router.patch("/leave/:id", isAdmin, async (req, res, next) => {
+  const leave = await Leave.findByPk(req.params.id);
+  const status = req.body.status;
+  const rejected_reason = req.body.rejected_reason;
+  if (leave) {
+    leave.status = status;
+    leave.rejected_reason = rejected_reason;
+    const updatedLeave = await leave.save();
+    res.json(updatedLeave);
+  } else {
+    res.status(404).json({ message: "Leave not found" });
+  }
+});
 
 module.exports = router;
