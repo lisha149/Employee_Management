@@ -6,7 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import Dialog from "@mui/material/Dialog";
-import { Button } from "@mui/material";
+import { Button } from "react-bootstrap";
 import { listLeaves } from "../../../actions/leaveActions";
 import "./ViewLeave.css";
 
@@ -60,8 +60,20 @@ const ViewLeave = () => {
               <td>{leave.status}</td>
               <td>{leave.rejected_reason}</td>
               <td>
-                <Button>Approve</Button>
-                <Button onClick={handleClickOpen}>Reject</Button>
+                <Button
+                  variant="success"
+                  style={{ flexDirection: "row", marginTop: 5 }}
+                >
+                  Approve
+                </Button>
+
+                <Button
+                  variant="danger"
+                  style={{ flexDirection: "row", marginTop: 5 }}
+                  onClick={handleClickOpen}
+                >
+                  Reject
+                </Button>
                 <Dialog
                   hideBackdrop
                   open={open}
@@ -77,7 +89,7 @@ const ViewLeave = () => {
                   </DialogContent>
                   <DialogActions>
                     <Button variant="outlined" onClick={handleClose}>
-                      Reject
+                      Cancel
                     </Button>
                     <Button variant="outlined">Reject</Button>
                   </DialogActions>
