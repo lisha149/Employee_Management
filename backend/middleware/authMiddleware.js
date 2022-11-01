@@ -17,7 +17,7 @@ const isAuth = async (req, res, next) => {
       //decodes token id
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await User.findOne({ where: { id: decoded.id } });
-      console.log(req.user.id);
+      console.log(req.user.email);
       next();
     } catch (error) {
       res.status(401);

@@ -26,8 +26,8 @@ const EmailSender = ({ email, reason, start_date, end_date }) => {
     to: process.env.SEND_TO,
     subject: "Leave Application",
     text: "Leave Request",
-    html: `<div style="width:100%;gap:10px; padding:30px 0;display:grid">
-    <p style="font-weight:800; font-size:1.2rem padding:0 30px;">Leave Request</p>
+    html: `<div>
+    <p style="font-weight:800; font-size:1.2rem">Leave Request</p>
       <div style=" font-size:0.8rem margin:0 30px;">
         <p>Requested By: <b>${email}</b></p>
         <p>Reason: <b>${reason}</b></p>
