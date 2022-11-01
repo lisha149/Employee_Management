@@ -105,7 +105,7 @@ const Register = () => {
                 label="Email"
                 type="email"
                 name="email"
-                placeholder="Enter your email"
+                placeholder="Enter email"
                 autoComplete="current-email"
                 helperText={<ErrorMessage name="email" />}
               />
@@ -116,10 +116,11 @@ const Register = () => {
                 label="Password"
                 type="password"
                 name="password"
-                placeholder="Enter your password"
+                placeholder="Enter password"
                 autoComplete="current-password"
                 helperText={<ErrorMessage name="password" />}
               />
+
               <Button
                 type="submit"
                 variant="contained"

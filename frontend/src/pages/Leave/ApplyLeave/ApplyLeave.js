@@ -1,97 +1,107 @@
-import React, { useState } from "react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
-import Card from "react-bootstrap/Card";
 import "react-datepicker/dist/react-datepicker.css";
-import { Grid, Paper, TextField, Button, Typography } from "@mui/material";
+import { Alert, Button, Card, Form } from "react-bootstrap";
 import "./ApplyLeave.css";
+import { addLeaves } from "../../../actions/leaveActions";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Error from "../../../components/Error";
 
 const ApplyLeave = () => {
+  const [reason, setReason] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const paperStyle = {
-    padding: 20,
-    width: 370,
-    height: "93vh",
-    margin: "40px auto",
-  };
-  const btnstyle = { margin: "8px 0", backgroundColor: "##158cba" };
 
-  const initialValues = {
-    leave_reason: "",
-    start_date: "",
-    end_date: "",
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  const email = `${userInfo.email}`;
+  const user_id = `${userInfo.id}`;
+
+  const resetHandler = () => {
+    setReason("");
   };
-  const validationSchema = Yup.object().shape({
-    leave_reason: Yup.string().required("Required"),
-    start_date: Yup.string().required("Required"),
-    end_date: Yup.string().required("Required"),
-  });
+
+  const dispatch = useDispatch();
+
+  const createLeave = useSelector((state) => state.createLeave);
+  const leave = createLeave;
+
+  const navigate = useNavigate();
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(addLeaves(reason, startDate, endDate, email, user_id));
+    resetHandler();
+  };
+  useEffect(() => {}, []);
+
   return (
-    <Grid>
-      <Paper elevation={10} style={paperStyle}>
-        <Grid align="center">
-          <h3 style={{ margin: 0 }}>Apply Leave</h3>
-          <Typography variant="caption" gutterBottom>
-            Please fill this form to apply leave
-          </Typography>
-        </Grid>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-        >
-          {(props) => (
-            <Form>
-              <Card>
-                <Field
-                  as={TextField}
-                  multiline
-                  row={1}
-                  fullWidth
-                  variant="standard"
-                  label="Leave Reason"
-                  name="leave_reason"
-                  placeholder="Kindly explain the reason"
-                  autoComplete="off"
-                  helperText={<ErrorMessage name="leave_reason" />}
-                />
-              </Card>
-              <div id="start-date">
-                <label>Start Date</label>
-                <DatePicker
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
-                  formatDate="dd/MM/yyyy"
-                  showYearDropdown
-                  scrollableMonthYearDropdown
-                />
-              </div>
-              <div id="end-date">
-                <label>End Date</label>
-                <DatePicker
-                  selected={endDate}
-                  onChange={(date) => setEndDate(date)}
-                  formatDate="dd/MM/yyyy"
-                  showYearDropdown
-                  scrollableMonthYearDropdown
-                />
-              </div>
+    <div className="createLeaveContainer">
+      <Card>
+        <Card.Header>Apply leave</Card.Header>
+        <Card.Body>
+          <Form onSubmit={submitHandler}>
+            <Form.Group controlId="content">
+              <Form.Label>Start Date</Form.Label>
 
-              <Button
-                type="submit"
-                variant="contained"
-                disabled={props.isSubmitting}
-                color="primary"
-                style={btnstyle}
-              >
-                {props.isSubmitting ? "Loading" : "Apply Leave"}
-              </Button>
-            </Form>
-          )}
-        </Formik>
-      </Paper>
-    </Grid>
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                dateFormat="yyyy-MM-dd"
+                minDate={new Date()}
+                filterDate={(date) => date.getDay() != 6 && date.getDay() != 0}
+                showYearDropdown
+                scrollableMonthYearDropdown
+              />
+            </Form.Group>
+            <Form.Group controlId="content">
+              <Form.Label>End Date</Form.Label>
+
+              <DatePicker
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+                dateFormat="yyyy-MM-dd"
+                minDate={new Date()}
+                filterDate={(date) =>
+                  date.getDay() !== 6 && date.getDay() !== 0
+                }
+                showYearDropdown
+                scrollableMonthYearDropdown
+              />
+            </Form.Group>
+            <Form.Group controlId="reason">
+              <Form.Label>Reason</Form.Label>
+              <Form.Control
+                as="textarea"
+                value={reason}
+                rows={5}
+                placeholder="Please kindly explain the reason"
+                onChange={(e) => setReason(e.target.value)}
+              />
+            </Form.Group>
+            <Button
+              type="submit"
+              variant="primary"
+              style={{ flexDirection: "row", marginTop: 10 }}
+              onClick={submitHandler}
+            >
+              Apply
+            </Button>
+            <Button
+              className="mx-2"
+              onClick={resetHandler}
+              variant="danger"
+              style={{ flexDirection: "row", marginTop: 10 }}
+            >
+              Clear
+            </Button>
+          </Form>
+        </Card.Body>
+        <Card.Footer className="text-muted">
+          Applying on - {new Date().toLocaleDateString()}
+        </Card.Footer>
+      </Card>
+    </div>
   );
 };
 

@@ -40,7 +40,7 @@ function App() {
               <Route path="/add-department" element={<DepartmentCreate />} />
               <Route path="/employee/:id" element={<UpdateEmployee />} />
               <Route path="/department/:id" element={<UpdateDepartment />} />
-              <Route path="/apply-for-leave" element={<ApplyLeave />} />
+              <Route path="/apply-leave" element={<ApplyLeave />} />
             </Routes>
           </div>
         </>

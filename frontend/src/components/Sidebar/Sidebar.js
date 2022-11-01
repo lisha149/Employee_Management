@@ -58,7 +58,7 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
             href="/"
             id="dashboard"
             className={
-              activeMenu == "dashboard" ? "active_menu_link" : "menu_link"
+              activeMenu === "dashboard" ? "active_menu_link" : "menu_link"
             }
             onClick={() => {
               setActiveMenu("dashboard");
@@ -97,7 +97,7 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
             <h2>LEAVE</h2>
             <div className="sidebar__link">
               <i className="fa fa-files-o"></i>
-              <Link href="/apply-for-leave">Apply for leave</Link>
+              <Link href="/apply-leave">Apply for leave</Link>
             </div>
 
             <div className="sidebar__link">

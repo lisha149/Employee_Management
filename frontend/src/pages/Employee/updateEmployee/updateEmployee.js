@@ -5,10 +5,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  updateEmployee,
-  listEmployees,
-} from "../../../actions/employeeActions";
+import { updateEmployee } from "../../../actions/employeeActions";
 import { useNavigate } from "react-router-dom";
 import "./update.css";
 import { useParams } from "react-router-dom";
@@ -98,6 +95,7 @@ const UpdateEmployee = () => {
               onChange={(e) => setDeptid(e.target.value)}
             />
           </Form.Group>
+
           <Button variant="primary" type="submit">
             Update
           </Button>
