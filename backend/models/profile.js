@@ -13,17 +13,25 @@ module.exports = (sequelize, Sequelize) => {
         key: "id", // the PK column name
       },
     },
-    address: {
+    first_name: {
       type: Sequelize.STRING,
       allowNull: false,
+    },
+    last_name: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    address: {
+      type: Sequelize.STRING,
+      allowNull: true,
     },
     contact_number: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     dob: {
       type: Sequelize.DATEONLY,
-      allowNull: false,
+      allowNull: true,
     },
     citizenship_number: {
       type: Sequelize.STRING,
@@ -43,21 +51,21 @@ module.exports = (sequelize, Sequelize) => {
     },
     gender: {
       type: Sequelize.ENUM("Male", "Female", "Others"),
-      allowNull: false,
+      allowNull: true,
     },
     marital_status: {
       type: Sequelize.ENUM("Married", "Unmarried"),
-      allowNull: false,
+      allowNull: true,
     },
     profile_pic: {
       type: Sequelize.STRING,
-      allowNull: false,
       defaultValue:
         "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
     },
     joined_date: {
       type: Sequelize.DATEONLY,
       allowNull: false,
+      defaultValue: Sequelize.NOW,
     },
     createdAt: {
       field: "created_at",
