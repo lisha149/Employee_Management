@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 //Add users
 app.use("/api", usersRouter);
 app.use("/api", deptRouter);
-app.use("/api/employee", leaveRouter);
+app.use("/api", leaveRouter);
 app.use("/api/employee", profileRouter);
 
 app.use(notFound);

@@ -4,7 +4,7 @@ const Models = require("./../models");
 const Leave = Models.leaves;
 const { isAdmin, isAuth } = require("../middleware/authMiddleware");
 const EmailSender = require("../config/sendEmail");
-router.post("/apply-leave", isAuth, async (req, res, next) => {
+router.post("/leave", isAuth, async (req, res, next) => {
   let email = req.body.email;
   let reason = req.body.leave_reason;
   let start_date = req.body.start_date;
@@ -39,13 +39,17 @@ router.post("/apply-leave", isAuth, async (req, res, next) => {
   }
 });
 
-//Get all leaves by admin
+//Get all leaves
 router.get("/leave", isAdmin, async (req, res, next) => {
   const leaves = await Leave.findAll();
-  res.json(leaves);
+  if (leaves) {
+    res.json(leaves);
+  } else {
+    res.status(404).json({ message: "Leave not found" });
+  }
 });
 //Get leave by id
-router.get("/leave/:id", async (req, res, next) => {
+router.get("/leave/:id", isAuth, async (req, res, next) => {
   const leave = await Leave.findByPk(req.params.id);
 
   if (leave) {
