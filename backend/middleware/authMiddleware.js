@@ -1,8 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { where } = require("sequelize");
-const { async } = require("validate.js");
 const Models = require("../models");
-const user = require("../models/user");
 const User = Models.users;
 require("dotenv").config();
 
@@ -20,6 +17,7 @@ const isAuth = async (req, res, next) => {
       //decodes token id
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await User.findOne({ where: { id: decoded.id } });
+      console.log(req.user.id);
       next();
     } catch (error) {
       res.status(401);
