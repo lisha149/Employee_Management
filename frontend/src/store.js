@@ -14,7 +14,11 @@ import {
   departmentUpdateReducer,
 } from "./reducers/departmentReducer";
 import { userLoginReducer } from "./reducers/userReducers";
-import { leaveCreateReducer, leaveListReducer } from "./reducers/leaveReducer";
+import {
+  leaveCreateReducer,
+  leaveListReducer,
+  leaveUpdateReducer,
+} from "./reducers/leaveReducer";
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
@@ -39,6 +43,7 @@ const store = configureStore({
     departmentUpdate: departmentUpdateReducer,
     leaveCreate: leaveCreateReducer,
     leaveList: leaveListReducer,
+    leaveUpdate: leaveUpdateReducer,
   },
   preloadedState,
 });

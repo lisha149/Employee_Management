@@ -1,34 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogActions from "@mui/material/DialogActions";
-import Dialog from "@mui/material/Dialog";
 import { Button } from "react-bootstrap";
-import { listLeaves } from "../../../actions/leaveActions";
+import { listLeaves, updateLeave } from "../../../actions/leaveActions";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./ViewLeave.css";
+import UpdateLeave from "../updateLeave/UpdateLeave";
 
 const ViewLeave = () => {
+  const status = "Approved";
+  const rejected_reason = null;
+
   const dispatch = useDispatch();
   const leaveList = useSelector((state) => state.leaveList);
   const { leaves } = leaveList;
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const [open, setOpen] = useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+  const leaveUpdate = useSelector((state) => state.leaveUpdate);
+  const { loading, error, success } = leaveUpdate;
   const navigate = useNavigate();
+
+  const approveHandler = (id) => {
+    // e.preventDefault();
+    console.log(id);
+    dispatch(updateLeave(id, status, rejected_reason));
+    toast("Leave request is approved successfully");
+    window.location.reload();
+  };
   useEffect(() => {
     dispatch(listLeaves());
+    // navigate("/leave");
     if (!userInfo) {
       navigate("/");
     }
@@ -36,6 +39,7 @@ const ViewLeave = () => {
 
   return (
     <form className="flex-container">
+      <ToastContainer />
       <table id="leaves">
         <thead>
           <tr>
@@ -63,37 +67,21 @@ const ViewLeave = () => {
                 <Button
                   variant="success"
                   style={{ flexDirection: "row", marginTop: 5 }}
+                  onClick={() => {
+                    approveHandler(`${leave.id}`);
+                  }}
                 >
                   Approve
                 </Button>
 
                 <Button
                   variant="danger"
-                  style={{ flexDirection: "row", marginTop: 5 }}
-                  onClick={handleClickOpen}
+                  style={{ flexDirection: "row", marginTop: 5, marginLeft: 5 }}
+                  href={`/leave/${leave.id}`}
+                  onClick={UpdateLeave}
                 >
                   Reject
                 </Button>
-                <Dialog
-                  hideBackdrop
-                  open={open}
-                  keepMounted
-                  onClose={handleClose}
-                  aria-describedby="alert-dialog-slide-description"
-                >
-                  <DialogTitle>Reject Leave?</DialogTitle>
-                  <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                      Are you sure you want to reject?
-                    </DialogContentText>
-                  </DialogContent>
-                  <DialogActions>
-                    <Button variant="outlined" onClick={handleClose}>
-                      Cancel
-                    </Button>
-                    <Button variant="outlined">Reject</Button>
-                  </DialogActions>
-                </Dialog>
               </td>
             </tr>
           ))}

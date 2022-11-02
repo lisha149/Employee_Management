@@ -38,3 +38,8 @@
   float: right;
   align-self: flex-end;
 }
+Button {
+  flex-direction: row;
+  margin-top: right;
+  margin-left: 5px;
+}

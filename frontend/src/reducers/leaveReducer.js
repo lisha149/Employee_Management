@@ -23,3 +23,17 @@ export const leaveCreateReducer = (state = {}, action) => {
       return state;
   }
 };
+
+export const leaveUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case "LEAVES_UPDATE_REQUEST":
+      return { loading: true };
+    case "LEAVES_UPDATE_SUCCESS":
+      return { loading: false, success: true };
+    case "LEAVES_UPDATE_FAIL":
+      return { loading: false, error: action.payload, success: false };
+
+    default:
+      return state;
+  }
+};

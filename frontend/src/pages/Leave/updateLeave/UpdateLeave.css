@@ -1,0 +1,10 @@
+.createReasonContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+  margin-left: 40px;
+  width: 100%;
+}
+.createReasonContainer .form-group {
+  margin: 15px 0;
+}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Alert, Button, Card, Form } from "react-bootstrap";
+import { Button, Card, Form } from "react-bootstrap";
 import "./ApplyLeave.css";
 import { addLeaves } from "../../../actions/leaveActions";
 import { useDispatch, useSelector } from "react-redux";

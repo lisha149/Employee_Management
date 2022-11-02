@@ -67,3 +67,41 @@ export const listLeaves = () => async (dispatch, getState) => {
     });
   }
 };
+export const updateLeave =
+  (id, status, rejected_reason) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: "LEAVES_UPDATE_REQUEST",
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.patch(
+        `/api/leave/${id}`,
+        { status, rejected_reason },
+        config
+      );
+
+      dispatch({
+        type: "LEAVES_UPDATE_SUCCESS",
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: "LEAVES_UPDATE_FAIL",
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
