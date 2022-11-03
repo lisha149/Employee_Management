@@ -39,6 +39,7 @@ router.post("/login", async (req, res, next) => {
     res.status(404).json({ message: "User does not exist" });
   }
 });
+
 //Add Employee
 router.post("/employee", isAdmin, async (req, res, next) => {
   const userExists = await User.findOne({ where: { email: req.body.email } });
@@ -83,7 +84,7 @@ router.post("/employee", isAdmin, async (req, res, next) => {
   }
 });
 //View Employee
-router.get("/employee", isAuth, async (req, res, next) => {
+router.get("/employees", isAuth, async (req, res, next) => {
   const employees = await User.findAll();
   res.json(employees);
 });
@@ -92,7 +93,7 @@ router.get("/employee-count", isAuth, async (req, res, next) => {
   res.json(count);
 });
 //Get Employee by id
-router.get("/employee/:id", isAuth, async (req, res, next) => {
+router.get("/employees/:id", isAuth, async (req, res, next) => {
   const employee = await User.findByPk(req.params.id);
 
   if (employee) {

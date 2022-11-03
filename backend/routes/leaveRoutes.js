@@ -43,7 +43,7 @@ router.post("/leave", isAuth, async (req, res, next) => {
 });
 
 //Get all leaves
-router.get("/leave", isAdmin, async (req, res, next) => {
+router.get("/leaves", isAdmin, async (req, res, next) => {
   const leaves = await Leave.findAll();
   if (leaves) {
     res.json(leaves);
@@ -51,6 +51,7 @@ router.get("/leave", isAdmin, async (req, res, next) => {
     res.status(404).json({ message: "Leave not found" });
   }
 });
+
 //Get leave by id
 router.get("/leave/:id", isAuth, async (req, res, next) => {
   const leave = await Leave.findByPk(req.params.id);
@@ -61,6 +62,7 @@ router.get("/leave/:id", isAuth, async (req, res, next) => {
     res.status(404).json({ message: "Leave not found" });
   }
 });
+
 //Approved,Reject leave
 router.patch("/leave/:id", isAdmin, async (req, res, next) => {
   const leave = await Leave.findByPk(req.params.id);
@@ -86,4 +88,16 @@ router.patch("/leave/:id", isAdmin, async (req, res, next) => {
   }
 });
 
+//view own leave
+router.get("/leave", isAuth, async (req, res, next) => {
+  console.log(req.user.id);
+  const user_id = req.user.id;
+  const leave = await Leave.findOne({ where: { user_id: user_id } });
+
+  if (leave) {
+    res.json(leave);
+  } else {
+    res.status(404).json({ message: "Leave not found" });
+  }
+});
 module.exports = router;
