@@ -17,11 +17,10 @@ app.get("/", (req, res) => {
   res.send("API is running");
 });
 
-//Add users
 app.use("/api", usersRouter);
 app.use("/api", deptRouter);
 app.use("/api", leaveRouter);
-app.use("/api/employee", profileRouter);
+app.use("/api", profileRouter);
 
 app.use(notFound);
 

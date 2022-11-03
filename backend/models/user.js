@@ -34,6 +34,10 @@ module.exports = (sequelize, Sequelize) => {
         key: "id", // the PK column name
       },
     },
+    designation: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
     is_password_changed: {
       type: Sequelize.BOOLEAN,
       defaultValue: false,
