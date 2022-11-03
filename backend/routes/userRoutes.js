@@ -1,4 +1,5 @@
 var express = require("express");
+const emailvalidator = require("email-validator");
 var router = express.Router();
 const Models = require("../models");
 const bcrypt = require("bcrypt");
@@ -38,10 +39,6 @@ router.post("/login", async (req, res, next) => {
     res.status(404).json({ message: "User does not exist" });
   }
 });
-//Get adminPage
-router.get("/adminPanel", isAdmin, async (req, res, next) => {
-  res.json({ message: "Admin Page" });
-});
 //Add Employee
 router.post("/employee", isAdmin, async (req, res, next) => {
   const userExists = await User.findOne({ where: { email: req.body.email } });
@@ -58,23 +55,31 @@ router.post("/employee", isAdmin, async (req, res, next) => {
     email: req.body.email,
     password: await bcrypt.hash(req.body.password, salt),
     is_admin: req.body.is_admin,
+    designation: req.body.designation,
+    department_id: req.body.department_id,
   };
-  created_user = await User.create(usr);
-  const created_profile = await Profile.create({
-    user_id: created_user.id,
-    first_name: created_user.first_name,
-    last_name: created_user.last_name,
-  });
-  if (created_user) {
-    res.status(201).json({
-      id: created_user.id,
+  if (emailvalidator.validate(usr.email)) {
+    created_user = await User.create(usr);
+    const created_profile = await Profile.create({
+      user_id: created_user.id,
       first_name: created_user.first_name,
       last_name: created_user.last_name,
       email: created_user.email,
-      token: generateToken(created_user.id),
+      designation: created_user.designation,
     });
+    if (created_user) {
+      res.status(201).json({
+        id: created_user.id,
+        first_name: created_user.first_name,
+        last_name: created_user.last_name,
+        email: created_user.email,
+        designation: created_user.designation,
+        department_id: created_user.department_id,
+        token: generateToken(created_user.id),
+      });
+    }
   } else {
-    res.status(404).json({ message: "Not Found" });
+    res.status(400).send({ message: "Please provide valid email" });
   }
 });
 //View Employee
