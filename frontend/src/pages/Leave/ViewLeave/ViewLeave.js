@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
@@ -15,6 +15,7 @@ const ViewLeave = () => {
   const dispatch = useDispatch();
   const leaveList = useSelector((state) => state.leaveList);
   const { leaves } = leaveList;
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -66,7 +67,7 @@ const ViewLeave = () => {
               <td>
                 <Button
                   variant="success"
-                  style={{ flexDirection: "row", marginTop: 5 }}
+                  style={{ flexDirection: "row", margin: 5 }}
                   onClick={() => {
                     approveHandler(`${leave.id}`);
                   }}
@@ -76,7 +77,7 @@ const ViewLeave = () => {
 
                 <Button
                   variant="danger"
-                  style={{ flexDirection: "row", marginTop: 5, marginLeft: 5 }}
+                  style={{ flexDirection: "row", margin: 5 }}
                   href={`/leave/${leave.id}`}
                   onClick={UpdateLeave}
                 >

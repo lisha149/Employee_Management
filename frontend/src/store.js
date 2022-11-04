@@ -5,6 +5,7 @@ import {
   employeeDeleteReducer,
   employeeUpdateReducer,
   employeeListReducer,
+  teamListReducer,
 } from "./reducers/employeeReducer";
 import {
   departmentCountReducer,
@@ -13,9 +14,10 @@ import {
   departmentListReducer,
   departmentUpdateReducer,
 } from "./reducers/departmentReducer";
-import { userLoginReducer } from "./reducers/userReducers";
+import { userLoginReducer, userProfileReducer } from "./reducers/userReducers";
 import {
   leaveCreateReducer,
+  leaveList,
   leaveListReducer,
   leaveUpdateReducer,
 } from "./reducers/leaveReducer";
@@ -24,13 +26,19 @@ const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
 
+const profileInfoFromStorage = localStorage.getItem("userProfileInfo")
+  ? JSON.parse(localStorage.getItem("userProfileInfo"))
+  : null;
+
 const preloadedState = {
   userLogin: { userInfo: userInfoFromStorage },
+  userProfile: { userProfileInfo: profileInfoFromStorage },
 };
 
 const store = configureStore({
   reducer: {
     userLogin: userLoginReducer,
+    userProfile: userProfileReducer,
     employeeCount: employeeCountReducer,
     departmentCount: departmentCountReducer,
     employeeCreate: employeeCreateReducer,
@@ -44,6 +52,8 @@ const store = configureStore({
     leaveCreate: leaveCreateReducer,
     leaveList: leaveListReducer,
     leaveUpdate: leaveUpdateReducer,
+    ownLeaveList: leaveList,
+    teamList: teamListReducer,
   },
   preloadedState,
 });

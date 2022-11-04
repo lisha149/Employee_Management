@@ -1,27 +1,27 @@
-#departments {
+#teams {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 100%;
+  width: 130%;
   margin-top: 50px;
   margin-left: 100px;
   overflow-x: auto;
 }
 
-#departments td,
-#departments th {
+#teams td,
+#teams th {
   border: 1px solid #ddd;
   padding: 8px;
 }
 
-#departments tr:nth-child(even) {
+#teams tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-#departments tr:hover {
+#teams tr:hover {
   background-color: #ddd;
 }
 
-#departments th {
+#teams th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;

@@ -11,7 +11,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import Dialog from "@mui/material/Dialog";
-import { Button } from "@mui/material";
+import { Button } from "react-bootstrap";
 import DepartmentCreate from "../addDepartment";
 
 const GetDepartments = () => {
@@ -50,7 +50,7 @@ const GetDepartments = () => {
     <form className="flex-container">
       <div className="add_button">
         <a href="/add-department" onClick={DepartmentCreate}>
-          <Button variant="contained">Add Department</Button>
+          <Button variant="primary">Add Department</Button>
         </a>
       </div>
       {/* {errorDelete && <Error>{errorDelete}</Error>} */}
@@ -70,11 +70,19 @@ const GetDepartments = () => {
               <td>
                 <Button
                   href={`/department/${department.id}`}
+                  variant="success"
+                  style={{ flexDirection: "row", margin: 5 }}
                   //   onClick={UpdateDepartment}
                 >
                   Edit
                 </Button>
-                <Button onClick={handleClickOpen}>Delete</Button>
+                <Button
+                  variant="danger"
+                  style={{ flexDirection: "row", margin: 5 }}
+                  onClick={handleClickOpen}
+                >
+                  Delete
+                </Button>
                 <Dialog
                   hideBackdrop
                   open={open}

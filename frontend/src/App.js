@@ -15,6 +15,9 @@ import UpdateDepartment from "./pages/Department/updateDepartment/updateDepartme
 import ApplyLeave from "./pages/Leave/ApplyLeave/ApplyLeave";
 import ViewLeave from "./pages/Leave/ViewLeave/ViewLeave";
 import UpdateLeave from "./pages/Leave/updateLeave/UpdateLeave";
+import MyLeave from "./pages/Leave/MyLeave/MyLeave";
+import MyTeam from "./pages/Employee/myTeam/MyTeam";
+import MyProfile from "./pages/myProfile/MyProfile";
 
 function App() {
   const [sidebarOpen, setsidebarOpen] = useState(false);
@@ -43,8 +46,11 @@ function App() {
               <Route path="/employee/:id" element={<UpdateEmployee />} />
               <Route path="/department/:id" element={<UpdateDepartment />} />
               <Route path="/apply-leave" element={<ApplyLeave />} />
-              <Route path="/leave" element={<ViewLeave />} />
+              <Route path="/leaves" element={<ViewLeave />} />
               <Route path="/leave/:id" element={<UpdateLeave />} />
+              <Route path="/leave" element={<MyLeave />} />
+              <Route path="/team" element={<MyTeam />} />
+              <Route path="/profile" element={<MyProfile />} />
             </Routes>
           </div>
         </>

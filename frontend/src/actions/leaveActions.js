@@ -50,7 +50,7 @@ export const listLeaves = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/leave`, config);
+    const { data } = await axios.get(`/api/leaves`, config);
     console.log(data);
 
     dispatch({
@@ -67,6 +67,7 @@ export const listLeaves = () => async (dispatch, getState) => {
     });
   }
 };
+
 export const updateLeave =
   (id, status, rejected_reason) => async (dispatch, getState) => {
     try {
@@ -105,3 +106,37 @@ export const updateLeave =
       });
     }
   };
+
+export const ownListLeaves = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: "OWN_LEAVE_LIST_REQUEST",
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/leave`, config);
+    console.log(data);
+
+    dispatch({
+      type: "OWN_LEAVE_LIST_SUCCESS",
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: "OWN_LEAVE_LIST_FAIL",
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};

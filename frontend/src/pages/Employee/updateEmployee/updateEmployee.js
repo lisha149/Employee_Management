@@ -16,6 +16,7 @@ const UpdateEmployee = () => {
   const [last_name, setLastname] = useState();
   const [email, setEmail] = useState();
   const [department_id, setDeptid] = useState();
+  const [designation, setDesignation] = useState();
   const [date, setDate] = useState("");
 
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const UpdateEmployee = () => {
       setLastname(data.last_name);
       setEmail(data.email);
       setDeptid(data.department_id);
+      setDesignation(data.designation);
       setDate(data.updated_at);
     };
 
@@ -43,8 +45,18 @@ const UpdateEmployee = () => {
   const navigate = useNavigate();
   const updateHandler = (e) => {
     e.preventDefault();
-    dispatch(updateEmployee(id, first_name, last_name, email, department_id));
-    if (!first_name || !last_name || !email || !department_id) return;
+    dispatch(
+      updateEmployee(
+        id,
+        first_name,
+        last_name,
+        email,
+        department_id,
+        designation
+      )
+    );
+    if (!first_name || !last_name || !email || !department_id || !designation)
+      return;
     resetHandler();
     navigate("/employee");
     window.location.reload();
@@ -53,6 +65,7 @@ const UpdateEmployee = () => {
     setFirstname("");
     setLastname("");
     setEmail("");
+    setDesignation("");
   };
 
   return (
@@ -92,6 +105,16 @@ const UpdateEmployee = () => {
               placeholder="Enter department id"
               value={department_id}
               onChange={(e) => setDeptid(e.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label>Designation</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="Enter department id"
+              value={designation}
+              onChange={(e) => setDesignation(e.target.value)}
             />
           </Form.Group>
 

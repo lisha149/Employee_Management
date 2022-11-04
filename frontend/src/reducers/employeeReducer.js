@@ -62,3 +62,17 @@ export const employeeUpdateReducer = (state = {}, action) => {
       return state;
   }
 };
+
+export const teamListReducer = (state = { teams: [] }, action) => {
+  switch (action.type) {
+    case "TEAMS_LIST_REQUEST":
+      return { loading: true };
+    case "TEAMS_LIST_SUCCESS":
+      return { loading: false, teams: action.payload };
+    case "TEAMS_LIST_FAIL":
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};

@@ -20,8 +20,12 @@ const Navbar = ({ sidebarOpen, openSidebar }) => {
         <a href="#">
           <i className="fa fa-clock-o" aria-hidden="true"></i>
         </a>
-        <a href="#!">
-          <img width="30" src={avatar} alt="avatar" />
+        <a href="#" id="p-link">
+          <img
+            width="30"
+            src="https://imagizer.imageshack.com/img921/3072/rqkhIb.jpg"
+            alt="avatar"
+          />
         </a>
       </div>
     </nav>

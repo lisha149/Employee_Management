@@ -11,7 +11,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import Dialog from "@mui/material/Dialog";
-import { Button, Link } from "@mui/material";
+import { Button } from "react-bootstrap";
 import Error from "../../../components/Error";
 import Register from "../addEmployee";
 import UpdateEmployee from "../updateEmployee/updateEmployee";
@@ -52,7 +52,7 @@ const GetEmployees = () => {
     <form className="flex-container">
       <div className="add_button">
         <a href="/add-employee">
-          <Button variant="contained" onClick={Register}>
+          <Button variant="primary" onClick={Register}>
             Add Employee
           </Button>
         </a>
@@ -78,11 +78,19 @@ const GetEmployees = () => {
               <td>
                 <Button
                   href={`/employee/${employee.id}`}
+                  variant="success"
+                  style={{ flexDirection: "row", margin: 5 }}
                   onClick={UpdateEmployee}
                 >
                   Edit
                 </Button>
-                <Button onClick={handleClickOpen}>Delete</Button>
+                <Button
+                  variant="danger"
+                  style={{ flexDirection: "row", margin: 5 }}
+                  onClick={handleClickOpen}
+                >
+                  Delete
+                </Button>
                 <Dialog
                   hideBackdrop
                   open={open}

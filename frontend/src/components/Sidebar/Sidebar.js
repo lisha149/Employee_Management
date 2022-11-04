@@ -80,7 +80,7 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
             <h3>Leaves</h3>
             <div className="sidebar__link">
               <i className="fa fa-question"></i>
-              <Link href="/leave">Requests</Link>
+              <Link href="/leaves">Requests</Link>
             </div>
             {/* <div className="sidebar__link">
               <i className="fa fa-sign-out"></i>
@@ -92,7 +92,7 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
             <h3>TEAM</h3>
             <div className="sidebar__link">
               <i className="fa fa-users"></i>
-              <Link href="#">My Team</Link>
+              <Link href="/team">My Team</Link>
             </div>
             <h3>LEAVE</h3>
             <div className="sidebar__link">
@@ -102,7 +102,7 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
 
             <div className="sidebar__link">
               <i className="fa fa-sign-out"></i>
-              <Link href="#">Leave Policy</Link>
+              <Link href="/leave">My Leaves</Link>
             </div>
             <div className="sidebar__link">
               <i className="fa fa-calendar-check-o"></i>
@@ -110,10 +110,13 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
             </div>
           </div>
         )}
-
+        <h3>PROFILE</h3>
+        <div className="sidebar__link">
+          <i className="fa fa-user"></i> <Link href="/profile">My profile</Link>
+        </div>
         <div className="sidebar__logout">
           <i className="fa fa-power-off"></i>
-          <a href="#" role="button" onClick={handleClickOpen}>
+          <a href="/logout" role="button" onClick={handleClickOpen}>
             {" "}
             Log out
           </a>

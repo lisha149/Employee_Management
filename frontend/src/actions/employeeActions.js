@@ -44,7 +44,7 @@ export const listEmployees = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/employee`, config);
+    const { data } = await axios.get(`/api/employees`, config);
     console.log(data);
 
     dispatch({
@@ -108,11 +108,14 @@ export const addEmployees = (values) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
+    console.log(values.department_id);
     const registerData = {
       first_name: values.firstname,
       last_name: values.lastname,
       email: values.email,
       password: values.password,
+      designation: values.designation,
+      department_id: values.department_id,
     };
     const { data } = await axios.post("/api/employee", registerData, config);
     console.log(data);
@@ -167,3 +170,36 @@ export const updateEmployee =
       });
     }
   };
+export const listTeams = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: "TEAMS_LIST_REQUEST",
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/employee`, config);
+    console.log(data);
+
+    dispatch({
+      type: "TEAMS_LIST_SUCCESS",
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: "TEAMS_LIST_FAIL",
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
