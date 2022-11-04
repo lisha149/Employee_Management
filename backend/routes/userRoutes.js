@@ -132,5 +132,12 @@ router.delete("/employee/:id", isAdmin, async (req, res) => {
     res.status(404).json({ message: "Employee not found" });
   }
 });
+//My Team
+router.get("/employee", isAuth, async (req, res, next) => {
+  const myteam = await User.findAll({
+    where: { department_id: req.user.department_id },
+  });
+  res.json(myteam);
+});
 
 module.exports = router;

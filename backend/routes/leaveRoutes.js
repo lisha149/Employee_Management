@@ -92,7 +92,7 @@ router.patch("/leave/:id", isAdmin, async (req, res, next) => {
 router.get("/leave", isAuth, async (req, res, next) => {
   console.log(req.user.id);
   const user_id = req.user.id;
-  const leave = await Leave.findOne({ where: { user_id: user_id } });
+  const leave = await Leave.findAll({ where: { user_id: user_id } });
 
   if (leave) {
     res.json(leave);

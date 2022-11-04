@@ -30,7 +30,6 @@ router.get("/department/:id", isAuth, async (req, res, next) => {
     res.status(404).json({ message: "Department not found" });
   }
 });
-
 //Edit department
 router.put("/department/:id", isAdmin, async (req, res, next) => {
   const { title } = req.body;
@@ -45,7 +44,6 @@ router.put("/department/:id", isAdmin, async (req, res, next) => {
     res.status(404).json({ message: "Department not found" });
   }
 });
-
 //Delete department
 router.delete("/department/:id", isAdmin, async (req, res) => {
   const department = await Department.findByPk(req.params.id);
