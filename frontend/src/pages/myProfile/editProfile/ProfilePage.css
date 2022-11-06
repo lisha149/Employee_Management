@@ -1,0 +1,47 @@
+main {
+  background: #f3f4f6;
+  grid-area: main;
+  overflow-y: auto;
+}
+.main__container {
+  padding: 20px 35px;
+}
+.main_content {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+}
+h4 {
+  color: gray;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 25px;
+  border-radius: 5px;
+  background: #ffffff;
+  box-shadow: 5px 5px 13px #ededed, -5px -5px 13px #ffffff;
+}
+.profilePic {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+  overflow: hidden;
+  /* background: #ccc; */
+  border: 3px solid rgb(232, 230, 230);
+}
+.profileContainer {
+  display: flex;
+  margin: 20px;
+}
+.profileContainer .form-group {
+  margin: 15px 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .profileContainer {
+    flex-direction: column-reverse;
+  }
+}

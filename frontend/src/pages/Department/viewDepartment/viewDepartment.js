@@ -12,7 +12,8 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import Dialog from "@mui/material/Dialog";
 import { Button } from "react-bootstrap";
-import DepartmentCreate from "../addDepartment";
+import DepartmentCreate from "../addDepartment/addDepartment";
+import Error from "../../../components/Error";
 
 const GetDepartments = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,6 @@ const GetDepartments = () => {
 
   const deleteHandler = (id) => {
     dispatch(deleteDepartment(id));
-    window.location.reload();
   };
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
@@ -48,16 +48,16 @@ const GetDepartments = () => {
 
   return (
     <form className="flex-container">
+      {errorDelete && <Error variant="danger">{errorDelete}</Error>}
+      {successDelete && <Error variant="success">{successDelete}</Error>}
       <div className="add_button">
         <a href="/add-department" onClick={DepartmentCreate}>
           <Button variant="primary">Add Department</Button>
         </a>
       </div>
-      {/* {errorDelete && <Error>{errorDelete}</Error>} */}
       <table id="departments">
         <thead>
           <tr>
-            <th>ID</th>
             <th>Title</th>
             <th>Actions</th>
           </tr>
@@ -65,14 +65,12 @@ const GetDepartments = () => {
         <tbody>
           {departments?.map((department) => (
             <tr key={department.id}>
-              <td>{department.id}</td>
               <td>{department.title}</td>
               <td>
                 <Button
                   href={`/department/${department.id}`}
                   variant="success"
                   style={{ flexDirection: "row", margin: 5 }}
-                  //   onClick={UpdateDepartment}
                 >
                   Edit
                 </Button>

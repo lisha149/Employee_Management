@@ -1,7 +1,7 @@
 #leaves {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 130%;
+  width: 100%;
   margin-top: 50px;
   margin-left: 100px;
   overflow-x: auto;
@@ -41,5 +41,4 @@
 Button {
   flex-direction: row;
   margin-top: right;
-  margin-left: 5px;
 }

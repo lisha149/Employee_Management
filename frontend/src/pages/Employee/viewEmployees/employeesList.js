@@ -13,7 +13,7 @@ import DialogActions from "@mui/material/DialogActions";
 import Dialog from "@mui/material/Dialog";
 import { Button } from "react-bootstrap";
 import Error from "../../../components/Error";
-import Register from "../addEmployee";
+import Register from "../addEmployee/addEmployee";
 import UpdateEmployee from "../updateEmployee/updateEmployee";
 
 const GetEmployees = () => {
@@ -61,7 +61,6 @@ const GetEmployees = () => {
       <table id="employees">
         <thead>
           <tr>
-            <th>ID</th>
             <th>Firstname</th>
             <th>Lastname</th>
             <th>Email</th>
@@ -71,7 +70,6 @@ const GetEmployees = () => {
         <tbody>
           {employees?.map((employee) => (
             <tr key={employee.id}>
-              <td>{employee.id}</td>
               <td>{employee.first_name}</td>
               <td>{employee.last_name}</td>
               <td>{employee.email}</td>

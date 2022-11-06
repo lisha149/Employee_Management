@@ -15,8 +15,8 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { addEmployees } from "../../actions/employeeActions";
-import { listDepartments } from "../../actions/departmentActions";
+import { addEmployees } from "../../../actions/employeeActions";
+import { listDepartments } from "../../../actions/departmentActions";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
@@ -58,7 +58,7 @@ const Register = () => {
   const submitHandler = (values) => {
     console.log(values);
     console.log(values.department_id);
-    dispatch(addEmployees(values));
+    dispatch(addEmployees(values, department_id));
     navigate("/employee");
     window.location.reload();
   };
@@ -66,6 +66,7 @@ const Register = () => {
 
   const handleChange = (e) => {
     setDepartmentId(e.target.value);
+    console.log(e.target.value);
   };
 
   useEffect(() => {
@@ -180,7 +181,7 @@ const Register = () => {
                 color="primary"
                 style={btnstyle}
               >
-                {props.isSubmitting ? "Loading" : "Sign up"}
+                {props.isSubmitting ? "Loading" : "Register"}
               </Button>
             </Form>
           )}

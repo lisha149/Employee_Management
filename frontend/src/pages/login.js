@@ -6,7 +6,7 @@ import Error from "../components/Error";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../actions/userActions";
+import { login, myProfile } from "../actions/userActions";
 
 const Login = () => {
   // const [error, setError] = useState(false);
@@ -31,6 +31,8 @@ const Login = () => {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const { error, userInfo } = userLogin;
+  const userProfile = useSelector((state) => state.userProfile);
+  const { userProfileInfo } = userProfile;
 
   const submitHandler = (values) => {
     dispatch(login(values));
@@ -39,9 +41,10 @@ const Login = () => {
 
   useEffect(() => {
     if (userInfo) {
+      dispatch(myProfile());
       navigate("/");
     }
-  }, [navigate, userInfo]);
+  }, [navigate, userInfo, userProfileInfo]);
 
   return (
     <Grid>

@@ -1,22 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Row, Col, Card } from "react-bootstrap";
-import "./updateEmployee.css";
+import "./ProfilePage.css";
 import { useDispatch, useSelector } from "react-redux";
-import { updateEmployee } from "../../../actions/employeeActions";
+import { updateProfile } from "../../../actions/userActions";
 import { useNavigate } from "react-router-dom";
 import Error from "../../../components/Error";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import { listDepartments } from "../../../actions/departmentActions";
 
-const UpdateEmployee = () => {
-  const { id } = useParams();
-  const [first_name, setFirstname] = useState("");
-  const [last_name, setLastname] = useState("");
-  const [department_id, setDeptid] = useState("");
-  const [designation, setDesignation] = useState("");
+const ProfilePage = () => {
   const [address, setAddress] = useState("");
   const [contact_number, setContactNumber] = useState("");
   const [dob, setDob] = useState("");
@@ -34,44 +24,28 @@ const UpdateEmployee = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const departmentList = useSelector((state) => state.departmentList);
-  const { departments } = departmentList;
+  const userProfile = useSelector((state) => state.userProfile);
+  const { userProfileInfo } = userProfile;
 
-  const employeeUpdate = useSelector((state) => state.employeeUpdate);
-  const { success, error } = employeeUpdate;
-
+  const userProfileUpdate = useSelector((state) => state.userProfileUpdate);
+  const { loading, error, success } = userProfileUpdate;
   const navigate = useNavigate();
   useEffect(() => {
     if (!userInfo) {
       navigate("/");
     } else {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      };
-      const fetching = async () => {
-        const { data } = await axios.get(`/api/profile/${id}`, config);
-        setFirstname(data.first_name);
-        setLastname(data.last_name);
-        setDeptid(data.department_id);
-        setDesignation(data.designation);
-        setAddress(data.address);
-        setContactNumber(data.contact_number);
-        setDob(data.dob);
-        setCitizenshipNumber(data.citizenship_number);
-        setPanNumber(data.pan_number);
-        setBankAccount(data.bank_account);
-        setBankNumber(data.bank_account_number);
-        setGender(data.gender);
-        setMaritalStatus(data.marital_status);
-        setPic(data.profile_pic);
-      };
-
-      fetching();
-      dispatch(listDepartments());
+      setAddress(userProfileInfo.address);
+      setContactNumber(userProfileInfo.contact_number);
+      setDob(userProfileInfo.dob);
+      setCitizenshipNumber(userProfileInfo.citizenship_number);
+      setPanNumber(userProfileInfo.pan_number);
+      setBankAccount(userProfileInfo.bank_account);
+      setBankNumber(userProfileInfo.bank_account_number);
+      setGender(userProfileInfo.gender);
+      setMaritalStatus(userProfileInfo.marital_status);
+      setPic(userProfileInfo.profile_pic);
     }
-  }, [userInfo, dispatch, id]);
+  }, [userProfileInfo, userInfo]);
 
   const postDetails = (pics) => {
     setPicMessage(null);
@@ -100,12 +74,7 @@ const UpdateEmployee = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
-      updateEmployee({
-        id,
-        first_name,
-        last_name,
-        department_id,
-        designation,
+      updateProfile({
         address,
         contact_number,
         dob,
@@ -118,72 +87,29 @@ const UpdateEmployee = () => {
         profile_pic,
       })
     );
-    toast("Profile Updated Successfully");
   };
-  const handleChange = (e) => {
-    setDeptid(e.target.value);
-    console.log(e.target.value);
-  };
+
   return (
     <main>
       <div className="main__container">
-        <div className="main_profile_content">
-          <div className="profile__card">
+        <div className="main_content">
+          <div className="card">
             <h3>Update Profile</h3>
             <hr />
             <Row className="profileContainer">
               <Col md={6}>
-                {success && (
-                  <Error variant="success">Profile Updated Successfully</Error>
-                )}
-                {success && (
-                  <ToastContainer closeButton={true} position="bottom-right" />
-                )}
-                {error && <Error variant="danger">{error}</Error>}
                 <Form onSubmit={submitHandler}>
-                  <Form.Group controlId="name">
-                    <Form.Label>First name</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter first name"
-                      value={first_name}
-                      onChange={(e) => setFirstname(e.target.value)}
-                    ></Form.Control>
-                  </Form.Group>
-                  <Form.Group controlId="name">
-                    <Form.Label>Last name</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter last name"
-                      value={last_name}
-                      onChange={(e) => setLastname(e.target.value)}
-                    ></Form.Control>
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Department</Form.Label>
-                    <select
-                      className="form-control"
-                      name="department_id"
-                      onChange={handleChange}
-                      value={department_id}
-                    >
-                      {departments?.map((department) => (
-                        <option value={department.id} key={department.id}>
-                          {department.title}
-                        </option>
-                      ))}
-                    </select>
-                  </Form.Group>
-                  <Form.Group controlId="name">
-                    <Form.Label>Designation</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter designation"
-                      value={designation}
-                      onChange={(e) => setDesignation(e.target.value)}
-                    ></Form.Control>
-                  </Form.Group>
-
+                  {/* {loading && <Loading />} */}
+                  {success && (
+                    <Error variant="success">
+                      Profile Updated Successfully
+                    </Error>
+                  )}
+                  {error && <Error variant="danger">{error}</Error>}
+                  <h4>
+                    Update your profile, {userProfileInfo.first_name}{" "}
+                    {userProfileInfo.last_name}
+                  </h4>
                   <Form.Group controlId="no">
                     <Form.Label>Address</Form.Label>
                     <Form.Control
@@ -285,7 +211,7 @@ const UpdateEmployee = () => {
                         setGender(e.target.value);
                       }}
                     />
-                    <label style={{ marginLeft: 2 }}>Others</label>
+                     <label style={{ marginLeft: 2 }}>Others</label>
                     <br />
                   </div>
 
@@ -366,4 +292,4 @@ const UpdateEmployee = () => {
   );
 };
 
-export default UpdateEmployee;
+export default ProfilePage;

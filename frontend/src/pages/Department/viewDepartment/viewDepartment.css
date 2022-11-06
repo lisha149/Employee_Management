@@ -5,6 +5,7 @@
   margin-top: 50px;
   margin-left: 100px;
   overflow-x: auto;
+  display: block;
 }
 
 #departments td,
@@ -37,4 +38,9 @@
   align-items: right;
   float: right;
   align-self: flex-end;
+}
+@media only screen and (max-width: 855px) {
+  #departments {
+    margin-left: 50px;
+  }
 }

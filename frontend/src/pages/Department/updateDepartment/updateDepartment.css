@@ -1,13 +1,23 @@
-.updateDepartmentContainer {
+main {
+  background: #f3f4f6;
+  grid-area: main;
+  overflow-y: auto;
+}
+.main_container {
+  padding: 20px 35px;
+}
+.department__content {
+  display: grid;
+  grid-template-columns: 1.5fr 0.5fr;
+  width: 100%;
+}
+.card___department {
   display: flex;
   flex-direction: column;
-}
-.updateDepartmentContainer .form-group {
-  margin: 15px 0;
-}
-Button {
-  margin-top: 10px;
-}
-Form.Label {
-  margin-top: 2px;
+  justify-content: center;
+  padding: 25px;
+  border-radius: 5px;
+  background: #ffffff;
+  box-shadow: 5px 5px 13px #ededed, -5px -5px 13px #ffffff;
+  width: 100%;
 }

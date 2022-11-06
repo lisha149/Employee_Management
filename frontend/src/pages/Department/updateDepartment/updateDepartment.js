@@ -9,24 +9,30 @@ import { updateDepartment } from "../../../actions/departmentActions";
 import { useNavigate } from "react-router-dom";
 import "./updateDepartment.css";
 import { useParams } from "react-router-dom";
+import Error from "../../../components/Error";
 
 const UpdateDepartment = () => {
   const { id } = useParams();
   console.log(id);
-  const [title, setTitle] = useState();
+  const [title, setTitle] = useState("");
 
   const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   const departmentList = useSelector((state) => state.departmentList);
   const { departments } = departmentList;
 
   const departmentUpdate = useSelector((state) => state.departmentUpdate);
   const { loading, error, success } = departmentUpdate;
 
-  const department = departments.find((department) => department.id === id);
-
   useEffect(() => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
     const fetching = async () => {
-      const { data } = await axios.get(`/api/department/${id}`);
+      const { data } = await axios.get(`/api/department/${id}`, config);
       setTitle(data.title);
     };
 
@@ -47,25 +53,45 @@ const UpdateDepartment = () => {
   };
 
   return (
-    <div style={{ display: "block", width: 600, padding: 30 }}>
-      <h4>Edit department</h4>
-      <Card>
-        <Form onSubmit={updateHandler}>
-          <Form.Group>
-            <Form.Label>Title</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter firstname"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Update
-          </Button>
-        </Form>
-      </Card>
-    </div>
+    <main>
+      <div className="main_container">
+        <div className="department__content">
+          <Card id="card___department" border="light">
+            {error && <Error variant="danger">{error}</Error>}
+            <Card.Header>Edit Department</Card.Header>
+            <Card.Body>
+              <Form onSubmit={updateHandler}>
+                <Form.Group controlId="title">
+                  <Form.Label>Title</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={title}
+                    placeholder="Enter the title"
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                </Form.Group>
+                <Button
+                  type="submit"
+                  variant="primary"
+                  style={{ flexDirection: "row", marginTop: 10 }}
+                  onClick={updateHandler}
+                >
+                  Add
+                </Button>
+                <Button
+                  className="mx-2"
+                  onClick={resetHandler}
+                  variant="danger"
+                  style={{ flexDirection: "row", marginTop: 10 }}
+                >
+                  Clear
+                </Button>
+              </Form>
+            </Card.Body>
+          </Card>
+        </div>
+      </div>
+    </main>
   );
 };
 

@@ -27,7 +27,7 @@ const ViewLeave = () => {
     // e.preventDefault();
     console.log(id);
     dispatch(updateLeave(id, status, rejected_reason));
-    toast("Leave request is approved successfully");
+    toast("Success");
     window.location.reload();
   };
   useEffect(() => {
@@ -44,9 +44,7 @@ const ViewLeave = () => {
       <table id="leaves">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>User ID</th>
-            <th>Reason</th>
+            <th>Leave Reason</th>
             <th>Start Date</th>
             <th>End Date</th>
             <th>Status</th>
@@ -57,8 +55,6 @@ const ViewLeave = () => {
         <tbody>
           {leaves?.map((leave) => (
             <tr key={leave.id}>
-              <td>{leave.id}</td>
-              <td>{leave.user_id}</td>
               <td>{leave.reason}</td>
               <td>{leave.start_date}</td>
               <td>{leave.end_date}</td>

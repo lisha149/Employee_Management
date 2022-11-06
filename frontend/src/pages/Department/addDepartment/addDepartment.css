@@ -6,12 +6,12 @@ main {
 .main_container {
   padding: 20px 35px;
 }
-.leave_content {
+.department_content {
   display: grid;
   grid-template-columns: 1.5fr 0.5fr;
   width: 100%;
 }
-.card2 {
+.card_department {
   display: flex;
   flex-direction: column;
   justify-content: center;
