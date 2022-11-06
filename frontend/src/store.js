@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { dashboardReducer } from "./reducers/dashboardReducer";
 import {
-  employeeCountReducer,
   employeeCreateReducer,
   employeeDeleteReducer,
   employeeUpdateReducer,
@@ -8,13 +8,16 @@ import {
   teamListReducer,
 } from "./reducers/employeeReducer";
 import {
-  departmentCountReducer,
   departmentCreateReducer,
   departmentDeleteReducer,
   departmentListReducer,
   departmentUpdateReducer,
 } from "./reducers/departmentReducer";
-import { userLoginReducer, userProfileReducer } from "./reducers/userReducers";
+import {
+  userLoginReducer,
+  userProfileReducer,
+  userProfileUpdateReducer,
+} from "./reducers/userReducers";
 import {
   leaveCreateReducer,
   leaveList,
@@ -39,8 +42,8 @@ const store = configureStore({
   reducer: {
     userLogin: userLoginReducer,
     userProfile: userProfileReducer,
-    employeeCount: employeeCountReducer,
-    departmentCount: departmentCountReducer,
+    userProfileUpdate: userProfileUpdateReducer,
+    dashboard: dashboardReducer,
     employeeCreate: employeeCreateReducer,
     employeeList: employeeListReducer,
     employeeDelete: employeeDeleteReducer,

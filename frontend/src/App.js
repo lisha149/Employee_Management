@@ -7,18 +7,18 @@ import GetEmployees from "./pages/Employee/viewEmployees/employeesList";
 import Navbar from "./components/Navbar/Navbar";
 import Sidebar from "./components/Sidebar/Sidebar";
 import { useSelector } from "react-redux";
-import Register from "./pages/Employee/addEmployee";
+import Register from "./pages/Employee/addEmployee/addEmployee";
 import UpdateEmployee from "./pages/Employee/updateEmployee/updateEmployee";
 import GetDepartments from "./pages/Department/viewDepartment/viewDepartment";
-import DepartmentCreate from "./pages/Department/addDepartment";
+import DepartmentCreate from "./pages/Department/addDepartment/addDepartment";
 import UpdateDepartment from "./pages/Department/updateDepartment/updateDepartment";
 import ApplyLeave from "./pages/Leave/ApplyLeave/ApplyLeave";
 import ViewLeave from "./pages/Leave/ViewLeave/ViewLeave";
 import UpdateLeave from "./pages/Leave/updateLeave/UpdateLeave";
 import MyLeave from "./pages/Leave/MyLeave/MyLeave";
 import MyTeam from "./pages/Employee/myTeam/MyTeam";
+import ProfilePage from "./pages/myProfile/editProfile/ProfilePage";
 import MyProfile from "./pages/myProfile/MyProfile";
-
 function App() {
   const [sidebarOpen, setsidebarOpen] = useState(false);
   const userLogin = useSelector((state) => state.userLogin);
@@ -51,6 +51,7 @@ function App() {
               <Route path="/leave" element={<MyLeave />} />
               <Route path="/team" element={<MyTeam />} />
               <Route path="/profile" element={<MyProfile />} />
+              <Route path="/profile/update" element={<ProfilePage />} />
             </Routes>
           </div>
         </>

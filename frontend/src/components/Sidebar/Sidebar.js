@@ -101,22 +101,18 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
             </div>
 
             <div className="sidebar__link">
-              <i className="fa fa-sign-out"></i>
-              <Link href="/leave">My Leaves</Link>
-            </div>
-            <div className="sidebar__link">
               <i className="fa fa-calendar-check-o"></i>
-              <Link href="#">Special Days</Link>
+              <Link href="/leave">My Leaves</Link>
             </div>
           </div>
         )}
         <h3>PROFILE</h3>
         <div className="sidebar__link">
-          <i className="fa fa-user"></i> <Link href="/profile">My profile</Link>
+          <i className="fa fa-user"></i> <Link href="/profile">My Profile</Link>
         </div>
         <div className="sidebar__logout">
           <i className="fa fa-power-off"></i>
-          <a href="/logout" role="button" onClick={handleClickOpen}>
+          <a href="#" role="button" onClick={handleClickOpen}>
             {" "}
             Log out
           </a>

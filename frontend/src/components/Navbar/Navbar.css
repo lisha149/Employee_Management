@@ -8,6 +8,9 @@
   padding: 0 30px 0 30px;
   border-bottom: 1px solid lightgray;
 }
+#p-link {
+  border-radius: 50%;
+}
 
 .nav_icon {
   display: none;

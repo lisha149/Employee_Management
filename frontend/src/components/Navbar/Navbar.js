@@ -1,8 +1,11 @@
 import "./Navbar.css";
-import avatar from "../../assets/avatar.svg";
 import { Link } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const Navbar = ({ sidebarOpen, openSidebar }) => {
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   return (
     <nav className="navbar">
       <div className="nav_icon" onClick={() => openSidebar()}>
@@ -20,12 +23,8 @@ const Navbar = ({ sidebarOpen, openSidebar }) => {
         <a href="#">
           <i className="fa fa-clock-o" aria-hidden="true"></i>
         </a>
-        <a href="#" id="p-link">
-          <img
-            width="30"
-            src="https://imagizer.imageshack.com/img921/3072/rqkhIb.jpg"
-            alt="avatar"
-          />
+        <a href="/profile" id="p-link">
+          <img width="30" src={userInfo.profile_pic} alt="avatar" />
         </a>
       </div>
     </nav>
