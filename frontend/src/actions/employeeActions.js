@@ -1,32 +1,4 @@
 import axios from "axios";
-export const countEmployees = () => async (dispatch, getState) => {
-  try {
-    const {
-      userLogin: { userInfo },
-    } = getState();
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
-
-    const { data } = await axios.get(`/api/employee-count`, config);
-
-    dispatch({
-      type: "EMPLOYEE_COUNT_SUCCESS",
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: "EMPLOYEE_COUNT_FAIL",
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
 
 export const listEmployees = () => async (dispatch, getState) => {
   try {
@@ -95,44 +67,61 @@ export const deleteEmployee = (id) => async (dispatch, getState) => {
   }
 };
 
-export const addEmployees = (values) => async (dispatch, getState) => {
-  try {
-    dispatch({ type: "EMPLOYEE_CREATE_REQUEST" });
+export const addEmployees =
+  (values, department_id) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: "EMPLOYEE_CREATE_REQUEST" });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
+      const {
+        userLogin: { userInfo },
+      } = getState();
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
-    console.log(values.department_id);
-    const registerData = {
-      first_name: values.firstname,
-      last_name: values.lastname,
-      email: values.email,
-      password: values.password,
-      designation: values.designation,
-      department_id: values.department_id,
-    };
-    const { data } = await axios.post("/api/employee", registerData, config);
-    console.log(data);
-    dispatch({ type: "EMPLOYEE_CREATE_SUCCESS", payload: data });
-  } catch (error) {
-    dispatch({
-      type: "EMPLOYEE_CREATE_FAIL",
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      console.log(values.department_id);
+      const registerData = {
+        first_name: values.firstname,
+        last_name: values.lastname,
+        email: values.email,
+        password: values.password,
+        designation: values.designation,
+        department_id,
+      };
+      const { data } = await axios.post("/api/employee", registerData, config);
+      console.log(data);
+      dispatch({ type: "EMPLOYEE_CREATE_SUCCESS", payload: data });
+    } catch (error) {
+      dispatch({
+        type: "EMPLOYEE_CREATE_FAIL",
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 export const updateEmployee =
-  (id, first_name, last_name, email, department_id) =>
+  ({
+    id,
+    first_name,
+    last_name,
+    department_id,
+    designation,
+    address,
+    contact_number,
+    dob,
+    citizenship_number,
+    pan_number,
+    bank_account,
+    bank_account_number,
+    gender,
+    marital_status,
+    profile_pic,
+  }) =>
   async (dispatch, getState) => {
     try {
       dispatch({
@@ -150,9 +139,24 @@ export const updateEmployee =
         },
       };
 
-      const { data } = await axios.put(
-        `/api/employee/${id}`,
-        { first_name, last_name, email, department_id },
+      const { data } = await axios.patch(
+        `/api/profile/${id}`,
+        {
+          first_name,
+          last_name,
+          department_id,
+          designation,
+          address,
+          contact_number,
+          dob,
+          citizenship_number,
+          pan_number,
+          bank_account,
+          bank_account_number,
+          gender,
+          marital_status,
+          profile_pic,
+        },
         config
       );
 
@@ -170,6 +174,7 @@ export const updateEmployee =
       });
     }
   };
+
 export const listTeams = () => async (dispatch, getState) => {
   try {
     dispatch({

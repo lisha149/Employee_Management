@@ -1,32 +1,4 @@
 import axios from "axios";
-export const countDepartments = () => async (dispatch, getState) => {
-  try {
-    const {
-      userLogin: { userInfo },
-    } = getState();
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
-
-    const { data } = await axios.get(`/api/department-count`, config);
-
-    dispatch({
-      type: "DEPARTMENT_COUNT_SUCCESS",
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: "DEPARTMENT_COUNT_FAIL",
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
 
 export const listDepartments = () => async (dispatch, getState) => {
   try {
@@ -94,7 +66,7 @@ export const deleteDepartment = (id) => async (dispatch, getState) => {
     });
   }
 };
-export const addDepartments = (values) => async (dispatch, getState) => {
+export const addDepartments = (title) => async (dispatch, getState) => {
   try {
     dispatch({ type: "DEPARTMENT_CREATE_REQUEST" });
 
@@ -107,10 +79,8 @@ export const addDepartments = (values) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const addData = {
-      title: values.title,
-    };
-    const { data } = await axios.post("/api/department", addData, config);
+
+    const { data } = await axios.post("/api/department", { title }, config);
     console.log(data);
     dispatch({ type: "DEPARTMENT_CREATE_SUCCESS", payload: data });
   } catch (error) {
