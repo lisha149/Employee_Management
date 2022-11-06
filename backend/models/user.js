@@ -46,6 +46,10 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.BOOLEAN,
       defaultValue: true,
     },
+    last_logged_in: {
+      type: Sequelize.DATE,
+      allowNull: true,
+    },
     createdAt: {
       field: "created_at",
       type: Sequelize.DATE,
