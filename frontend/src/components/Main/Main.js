@@ -1,26 +1,25 @@
 import "./Main.css";
 import hello from "../../assets/hello.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { countEmployees } from "../../actions/employeeActions";
-import { countDepartments } from "../../actions/departmentActions";
+import { dashboardActions } from "../../actions/dashboardActions";
 import { useNavigate } from "react-router-dom";
-// import { login } from "../../actions/userActions";
-import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { useEffect } from "react";
 const Main = () => {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-  const employeeCount = useSelector((state) => state.employeeCount);
-  const { count } = employeeCount;
-  const departmentCount = useSelector((state) => state.departmentCount);
-  const { dcount } = departmentCount;
+
+  const dashboard = useSelector((state) => state.dashboard);
+  const { data } = dashboard;
+
   const navigate = useNavigate();
   useEffect(() => {
-    dispatch(countEmployees());
-    dispatch(countDepartments());
-    if (!userInfo) {
-      navigate("/");
+    dispatch(dashboardActions());
+    if (data.popupMessage) {
+      toast(`${data.popupMessage}`);
     }
   }, [dispatch, userInfo]);
 
@@ -35,11 +34,18 @@ const Main = () => {
             <h1>Hello {userInfo.first_name}</h1>
             <p>Welcome to your dashboard</p>
           </div>
+          <br />
+          <ToastContainer
+            autoClose={10000}
+            closeButton={true}
+            position="top-center"
+          />
         </div>
 
         {/* <!-- MAIN TITLE ENDS HERE --> */}
 
         {/* <!-- MAIN CARDS STARTS HERE --> */}
+
         <div className="main__cards">
           <div className="card">
             <i
@@ -48,7 +54,7 @@ const Main = () => {
             ></i>
             <div className="card_inner">
               <p className="text-primary-p">Number of Employee</p>
-              <span className="font-bold text-title">{count}</span>
+              <span className="font-bold text-title">{data.employeeCount}</span>
             </div>
           </div>
 
@@ -59,11 +65,13 @@ const Main = () => {
             ></i>
             <div className="card_inner">
               <p className="text-primary-p">Number of Department</p>
-              <span className="font-bold text-title">{dcount}</span>
+
+              <span className="font-bold text-title">
+                {data.departmentCount}
+              </span>
             </div>
           </div>
-
-          <div className="card">
+          {/* <div className="card">
             <i
               className="fa fa-birthday-cake fa-2x text-yellow"
               aria-hidden="true"
@@ -72,8 +80,9 @@ const Main = () => {
               <p className="text-primary-p">Coming up Birthday</p>
               <span className="font-bold text-title">....</span>
             </div>
-          </div>
+          </div> */}
         </div>
+
         {/* <!-- MAIN CARDS ENDS HERE --> */}
       </div>
     </main>
