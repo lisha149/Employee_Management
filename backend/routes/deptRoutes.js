@@ -5,20 +5,21 @@ const Department = Models.departments;
 const { isAuth, isAdmin } = require("../middleware/authMiddleware");
 //Create
 router.post("/department", isAdmin, async (req, res, next) => {
-  var dept = {
-    title: req.body.title,
-  };
-  created_department = await Department.create(dept);
-  res.status(201).json(created_department);
+  const title = req.body.title;
+  if (title == "") {
+    res.status(400).json({ message: "Department title cannot be empty" });
+  } else {
+    var dept = {
+      title,
+    };
+    created_department = await Department.create(dept);
+    res.status(201).json(created_department);
+  }
 });
+
 router.get("/department", isAuth, async (req, res, next) => {
   const departments = await Department.findAll();
   res.json(departments);
-});
-//count
-router.get("/department-count", isAuth, async (req, res, next) => {
-  const count = await Department.count();
-  res.json(count);
 });
 //Get department by id
 router.get("/department/:id", isAuth, async (req, res, next) => {
@@ -33,15 +34,18 @@ router.get("/department/:id", isAuth, async (req, res, next) => {
 //Edit department
 router.put("/department/:id", isAdmin, async (req, res, next) => {
   const { title } = req.body;
-
-  const department = await Department.findByPk(req.params.id);
-
-  if (department) {
-    department.title = title;
-    const updatedDepartment = await department.save();
-    res.json(updatedDepartment);
+  if (title == "") {
+    res.status(400).json({ message: "Department title cannot be empty" });
   } else {
-    res.status(404).json({ message: "Department not found" });
+    const department = await Department.findByPk(req.params.id);
+
+    if (department) {
+      department.title = title || department.title;
+      const updatedDepartment = await department.save();
+      res.json(updatedDepartment);
+    } else {
+      res.status(404).json({ message: "Department not found" });
+    }
   }
 });
 //Delete department
