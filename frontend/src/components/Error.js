@@ -1,16 +1,11 @@
 import React from "react";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
-import { Stack } from "@mui/material";
+import { Alert } from "react-bootstrap";
 
-const Error = ({ children }) => {
+const Error = ({ variant = "info", children }) => {
   return (
-    <Stack sx={{ width: "100%" }} spacing={2}>
-      <Alert severity="error" style={{ fontSize: 20 }}>
-        <AlertTitle>Error</AlertTitle>
-        <strong>{children}</strong>
-      </Alert>
-    </Stack>
+    <Alert variant={variant} style={{ fontSize: 20 }}>
+      <strong>{children}</strong>
+    </Alert>
   );
 };
 
