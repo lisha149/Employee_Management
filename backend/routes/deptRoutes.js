@@ -65,18 +65,34 @@ router.delete("/department/:id", isAdmin, async (req, res) => {
 //Get department members
 router.get("/departments/:id", isAuth, async (req, res, next) => {
   const department = await Department.findByPk(req.params.id);
-
+  const profiles = await Profile.findAll();
+  let employeeProfileData = [];
   if (department) {
     const employees = await User.findAll({
       where: { department_id: department.id },
     });
-
     if (employees) {
-      res.json({
-        id: department.id,
-        title: department.title,
-        members: employees,
+      employees.forEach((employee) => {
+        userData = employee.dataValues;
+        profiles.forEach((profile) => {
+          profileData = profile.dataValues;
+          if (userData.id == profileData.user_id) {
+            employeeProfileData.push({
+              id: profileData.id,
+              user_id: userData.id,
+              first_name: userData.first_name,
+              last_name: userData.last_name,
+              email: userData.email,
+              designation: userData.designation,
+              address: profileData.address,
+              contact_number: profileData.contact_number,
+              dob: profileData.dob,
+              profile_pic: profileData.profile_pic,
+            });
+          }
+        });
       });
+      res.json(employeeProfileData);
     } else {
       res.status(404).json({ message: "Employee not found" });
     }

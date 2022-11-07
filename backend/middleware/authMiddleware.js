@@ -16,10 +16,10 @@ const isAuth = async (req, res, next) => {
 
       //decodes token id
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      console.log(decoded.id);
+      // console.log(decoded.id);
       req.user = await User.findOne({ where: { id: decoded.id } });
-      console.log(req.user.email);
-      console.log(req.user.id);
+      // console.log(req.user.email);
+      // console.log(req.user.id);
       next();
     } catch (error) {
       res.status(401);
@@ -80,11 +80,11 @@ const isEmployee = async (req, res, next) => {
       //decodes token id
       decoded = jwt.verify(token, process.env.JWT_SECRET);
       if (decoded) {
-        let user = await User.findOne({
+        req.user = await User.findOne({
           where: { id: decoded.id, is_admin: false },
         });
-        console.log(user);
-        if (!user) {
+        console.log(req.user);
+        if (!req.user) {
           return res.status(401).send({
             message: " You are not authorize to perform this action",
           });

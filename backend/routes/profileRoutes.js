@@ -5,7 +5,6 @@ const Profile = Models.profiles;
 const User = Models.users;
 var moment = require("moment");
 const { isAuth, isAdmin } = require("../middleware/authMiddleware");
-const generateToken = require("../utils/generateToken");
 //Edit profile
 router.patch("/profile", isAuth, async (req, res, next) => {
   var today = new Date();
@@ -27,11 +26,8 @@ router.patch("/profile", isAuth, async (req, res, next) => {
     marital_status,
     profile_pic,
   } = req.body;
-  function checkForNums(input) {
-    let result = /^\d*$/.test(input);
-    console.log(result);
-  }
-  if (checkForNums(contact_number) === false) {
+  let number = /^\d*$/.test(contact_number);
+  if (number == false) {
     res.status(401).json({ message: "Contact number must be numeric" });
   } else if (dob > validMinDate) {
     res
@@ -67,7 +63,6 @@ router.patch("/profile", isAuth, async (req, res, next) => {
         gender: updatedProfile.gender,
         marital_status: updatedProfile.marital_status,
         profile_pic: updatedProfile.profile_pic,
-        // token: generateToken(updatedProfile.user_id),
       });
     } else {
       res.status(404).json({ message: "Profile not found" });
@@ -143,10 +138,10 @@ router.patch("/profile/:id", isAdmin, async (req, res, next) => {
     }
   }
 });
-//Get profile by id
+//Get profile by profile id
 router.get("/profile/:id", isAuth, async (req, res, next) => {
-  const employee = await User.findByPk(req.params.id);
-  const profile = await Profile.findOne({ where: { user_id: employee.id } });
+  const profile = await Profile.findByPk(req.params.id);
+  const employee = await User.findOne({ where: { id: profile.user_id } });
 
   if (profile && employee) {
     res.json(profile);
@@ -159,10 +154,9 @@ router.get("/profiles", isAuth, async (req, res, next) => {
   const profiles = await Profile.findAll();
   res.json(profiles);
 });
-
-//Get my own profile
+//Get current user profile
 router.get("/profile", isAuth, async (req, res, next) => {
-  console.log(req.user.id);
+  // console.log(req.user.id);
   const user_id = req.user.id;
   const profile = await Profile.findOne({ where: { user_id: user_id } });
 

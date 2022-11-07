@@ -4,13 +4,13 @@ var router = express.Router();
 const Models = require("./../models");
 const Leave = Models.leaves;
 const User = Models.users;
-const { isAdmin, isAuth } = require("../middleware/authMiddleware");
+const { isAdmin, isAuth, isEmployee } = require("../middleware/authMiddleware");
 const EmailSender = require("../config/sendEmail");
 const leaveRejected = require("../config/sendEmailToEmployee/Rejected");
 const leaveApproved = require("../config/sendEmailToEmployee/Approved");
 
 //Apply Leave
-router.post("/leave", isAuth, async (req, res, next) => {
+router.post("/leave", isEmployee, async (req, res, next) => {
   let email = req.user.email;
   let reason = req.body.leave_reason;
   let start_date = req.body.start_date;
@@ -56,8 +56,29 @@ router.post("/leave", isAuth, async (req, res, next) => {
 //Get all leaves
 router.get("/leaves", isAdmin, async (req, res, next) => {
   const leaves = await Leave.findAll();
+  const users = await User.findAll();
+
+  let employeeLeaveData = [];
+  users.forEach((user) => {
+    userData = user.dataValues;
+    leaves.forEach((leave) => {
+      leaveData = leave.dataValues;
+      if (userData.id == leaveData.user_id) {
+        employeeLeaveData.push({
+          id: leaveData.id,
+          user_id: userData.id,
+          applicant_name: userData.first_name + " " + userData.last_name,
+          reason: leaveData.reason,
+          start_date: leaveData.start_date,
+          end_date: leaveData.end_date,
+          rejected_reason: leaveData.rejected_reason,
+          status: leaveData.status,
+        });
+      }
+    });
+  });
   if (leaves) {
-    res.json(leaves);
+    res.json(userLeaveData);
   } else {
     res.status(404).json({ message: "Leave not found" });
   }
@@ -73,7 +94,7 @@ router.get("/leave/:id", isAdmin, async (req, res, next) => {
   }
 });
 
-//Approved,Reject leave
+//Approved/Reject leave
 router.patch("/leave/:id", isAdmin, async (req, res, next) => {
   const leave = await Leave.findByPk(req.params.id);
   req.leave = await User.findOne({ where: { id: leave.user_id } });
@@ -87,13 +108,14 @@ router.patch("/leave/:id", isAdmin, async (req, res, next) => {
     leave.rejected_reason = rejected_reason;
     if (leave.status == "Rejected" && leave.rejected_reason == "") {
       res.status(400).json({ message: "Please provide the rejected reason" });
+    } else {
+      const updatedLeave = await leave.save();
+      res.json(updatedLeave);
     }
-    const updatedLeave = await leave.save();
-    res.json(updatedLeave);
   } else {
     res.status(404).json({ message: "Leave not found" });
   }
-  console.log(email);
+  // console.log(email);
   if (leave.status.toLowerCase() === "approved") {
     leaveApproved({ email, status });
   } else {
@@ -102,8 +124,8 @@ router.patch("/leave/:id", isAdmin, async (req, res, next) => {
 });
 
 //view own leave
-router.get("/leave", isAuth, async (req, res, next) => {
-  console.log(req.user.id);
+router.get("/leave", isEmployee, async (req, res, next) => {
+  // console.log(req.user.id);
   const user_id = req.user.id;
   const leave = await Leave.findAll({ where: { user_id: user_id } });
 

@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const User = Models.users;
 const Profile = Models.profiles;
 const generateToken = require("../utils/generateToken");
-const { isAuth, isAdmin } = require("../middleware/authMiddleware");
+const { isAuth, isAdmin, isEmployee } = require("../middleware/authMiddleware");
 
 //Login API
 router.post("/login", async (req, res, next) => {
@@ -90,7 +90,7 @@ router.post("/employee", isAdmin, async (req, res, next) => {
   }
 });
 //View Employee
-router.get("/employees", isAuth, async (req, res, next) => {
+router.get("/employees", isAdmin, async (req, res, next) => {
   const employees = await User.findAll();
   res.json(employees);
 });
@@ -135,6 +135,7 @@ router.get("/employees/:id", isAuth, async (req, res, next) => {
 //     res.status(404).json({ message: "Employee not found" });
 //   }
 // });
+
 //Delete Employee
 router.delete("/employee/:id", isAdmin, async (req, res) => {
   const employee = await User.findByPk(req.params.id);
@@ -148,7 +149,8 @@ router.delete("/employee/:id", isAdmin, async (req, res) => {
   }
 });
 //My Team
-router.get("/employee", isAuth, async (req, res, next) => {
+router.get("/employee", isEmployee, async (req, res, next) => {
+  console.log(req.user.department_id);
   const myteam = await User.findAll({
     where: { department_id: req.user.department_id },
   });
