@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Row, Col, Card } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import "./ProfilePage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "../../../actions/userActions";
@@ -88,7 +88,9 @@ const ProfilePage = () => {
       })
     );
   };
-
+  const cancelHandler = () => {
+    navigate("/profile");
+  };
   return (
     <main>
       <div className="main__container">
@@ -257,6 +259,7 @@ const ProfilePage = () => {
                     type="submit"
                     variant="info"
                     style={{ marginTop: 14, marginLeft: 10 }}
+                    onClick={cancelHandler}
                   >
                     Cancel
                   </Button>

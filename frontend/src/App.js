@@ -19,6 +19,9 @@ import MyLeave from "./pages/Leave/MyLeave/MyLeave";
 import MyTeam from "./pages/Employee/myTeam/MyTeam";
 import ProfilePage from "./pages/myProfile/editProfile/ProfilePage";
 import MyProfile from "./pages/myProfile/MyProfile";
+import ViewMembers from "./pages/Department/viewMembers/viewMembers";
+import ViewDetails from "./pages/Department/viewDetails/viewDetails";
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
 function App() {
   const [sidebarOpen, setsidebarOpen] = useState(false);
   const userLogin = useSelector((state) => state.userLogin);
@@ -45,6 +48,7 @@ function App() {
               <Route path="/add-department" element={<DepartmentCreate />} />
               <Route path="/employee/:id" element={<UpdateEmployee />} />
               <Route path="/department/:id" element={<UpdateDepartment />} />
+              <Route path="/departments/:id" element={<ViewMembers />} />
               <Route path="/apply-leave" element={<ApplyLeave />} />
               <Route path="/leaves" element={<ViewLeave />} />
               <Route path="/leave/:id" element={<UpdateLeave />} />
@@ -52,6 +56,8 @@ function App() {
               <Route path="/team" element={<MyTeam />} />
               <Route path="/profile" element={<MyProfile />} />
               <Route path="/profile/update" element={<ProfilePage />} />
+              <Route path="/profile/:id" element={<ViewDetails />} />
+              <Route path="*" element={<PageNotFound />} />
             </Routes>
           </div>
         </>

@@ -53,7 +53,7 @@ const Main = () => {
               aria-hidden="true"
             ></i>
             <div className="card_inner">
-              <p className="text-primary-p">Number of Employee</p>
+              <p className="text-primary-p">Number of Employees</p>
               <span className="font-bold text-title">{data.employeeCount}</span>
             </div>
           </div>
@@ -64,23 +64,13 @@ const Main = () => {
               aria-hidden="true"
             ></i>
             <div className="card_inner">
-              <p className="text-primary-p">Number of Department</p>
+              <p className="text-primary-p">Number of Departments</p>
 
               <span className="font-bold text-title">
                 {data.departmentCount}
               </span>
             </div>
           </div>
-          {/* <div className="card">
-            <i
-              className="fa fa-birthday-cake fa-2x text-yellow"
-              aria-hidden="true"
-            ></i>
-            <div className="card_inner">
-              <p className="text-primary-p">Coming up Birthday</p>
-              <span className="font-bold text-title">....</span>
-            </div>
-          </div> */}
         </div>
 
         {/* <!-- MAIN CARDS ENDS HERE --> */}

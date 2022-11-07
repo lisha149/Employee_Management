@@ -131,3 +131,39 @@ export const updateDepartment = (id, title) => async (dispatch, getState) => {
     });
   }
 };
+
+export const members = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: "DEPARTMENT_MEMBERS_REQUEST",
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/departments/${id}`, config);
+
+    console.log(data);
+    const result = data.members;
+    console.log(result);
+    dispatch({
+      type: "DEPARTMENT_MEMBERS_SUCCESS",
+      payload: result,
+    });
+  } catch (error) {
+    dispatch({
+      type: "DEPARTMENT_MEMBERS_FAIL",
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};

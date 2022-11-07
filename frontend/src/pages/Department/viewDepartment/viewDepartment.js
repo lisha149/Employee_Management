@@ -68,6 +68,13 @@ const GetDepartments = () => {
               <td>{department.title}</td>
               <td>
                 <Button
+                  href={`/departments/${department.id}`}
+                  variant="info"
+                  style={{ flexDirection: "row", margin: 5 }}
+                >
+                  View Members
+                </Button>
+                <Button
                   href={`/department/${department.id}`}
                   variant="success"
                   style={{ flexDirection: "row", margin: 5 }}

@@ -124,6 +124,9 @@ const UpdateEmployee = () => {
     setDeptid(e.target.value);
     console.log(e.target.value);
   };
+  const cancelHandler = () => {
+    navigate("/employee");
+  };
   return (
     <main>
       <div className="main__container">
@@ -331,6 +334,7 @@ const UpdateEmployee = () => {
                     type="submit"
                     variant="info"
                     style={{ marginTop: 14, marginLeft: 10 }}
+                    onClick={cancelHandler}
                   >
                     Cancel
                   </Button>

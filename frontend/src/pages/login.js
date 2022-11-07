@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, myProfile } from "../actions/userActions";
 
 const Login = () => {
-  // const [error, setError] = useState(false);
   const paperStyle = {
     padding: 20,
     height: "70vh",
@@ -17,7 +16,7 @@ const Login = () => {
     margin: "80px auto",
   };
   const avatarStyle = { backgroundColor: "##158cba" };
-  const btnstyle = { margin: "10px 0", backgroundColor: "##158cba" };
+  const btnstyle = { margin: "10px 0" };
   const initialValues = {
     email: "",
     password: "",
@@ -53,9 +52,9 @@ const Login = () => {
           <Avatar style={avatarStyle}>
             <LockOutlinedIcon />
           </Avatar>
-          <h2>Login</h2>
+          <h2 style={{ color: "##158cba" }}>Login</h2>
         </Grid>
-        {error && <Error>{error}</Error>}
+        {error && <Error variant="danger">{error}</Error>}
         <Formik
           initialValues={initialValues}
           onSubmit={submitHandler}
@@ -92,11 +91,10 @@ const Login = () => {
                 type="submit"
                 color="primary"
                 variant="contained"
-                disabled={props.isSubmitting}
                 style={btnstyle}
                 fullWidth
               >
-                {props.isSubmitting ? "Loading" : "Login"}
+                Login
               </Button>
               {/* {console.log(props)} */}
             </Form>

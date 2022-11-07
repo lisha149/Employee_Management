@@ -11,9 +11,11 @@ import {
   departmentCreateReducer,
   departmentDeleteReducer,
   departmentListReducer,
+  departmentMemberReducer,
   departmentUpdateReducer,
 } from "./reducers/departmentReducer";
 import {
+  profileReducer,
   userLoginReducer,
   userProfileReducer,
   userProfileUpdateReducer,
@@ -52,11 +54,13 @@ const store = configureStore({
     departmentList: departmentListReducer,
     departmentDelete: departmentDeleteReducer,
     departmentUpdate: departmentUpdateReducer,
+    departmentMember: departmentMemberReducer,
     leaveCreate: leaveCreateReducer,
     leaveList: leaveListReducer,
     leaveUpdate: leaveUpdateReducer,
     ownLeaveList: leaveList,
     teamList: teamListReducer,
+    profileList: profileReducer,
   },
   preloadedState,
 });

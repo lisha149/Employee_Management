@@ -12,6 +12,7 @@ import { logout } from "../../actions/userActions";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "@mui/material";
+import { NavLink } from "react-router-dom";
 
 const Sidebar = ({ sidebarOpen, closeSidebar }) => {
   const dispatch = useDispatch();
@@ -82,10 +83,6 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
               <i className="fa fa-question"></i>
               <Link href="/leaves">Requests</Link>
             </div>
-            {/* <div className="sidebar__link">
-              <i className="fa fa-sign-out"></i>
-              <Link href="#">Leaves</Link>
-            </div> */}
           </div>
         ) : (
           <div>

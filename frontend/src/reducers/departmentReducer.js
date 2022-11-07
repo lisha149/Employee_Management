@@ -11,7 +11,7 @@ export const departmentCreateReducer = (state = {}, action) => {
   }
 };
 
-export const departmentListReducer = (state = { departments: [] }, action) => {
+export const departmentListReducer = (state = {}, action) => {
   switch (action.type) {
     case "DEPARTMENTS_LIST_REQUEST":
       return { loading: true };
@@ -46,6 +46,20 @@ export const departmentUpdateReducer = (state = {}, action) => {
       return { loading: false, success: true };
     case "DEPARTMENTS_UPDATE_FAIL":
       return { loading: false, error: action.payload, success: false };
+
+    default:
+      return state;
+  }
+};
+
+export const departmentMemberReducer = (state = {}, action) => {
+  switch (action.type) {
+    case "DEPARTMENT_MEMBERS_REQUEST":
+      return { loading: true };
+    case "DEPARTMENT_MEMBERS_SUCCESS":
+      return { loading: false, departmentDetails: action.payload };
+    case "DEPARTMENT_MEMBERS_FAIL":
+      return { loading: false, error: action.payload };
 
     default:
       return state;

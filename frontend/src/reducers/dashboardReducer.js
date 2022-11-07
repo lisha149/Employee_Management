@@ -4,6 +4,7 @@ export const dashboardReducer = (state = { data: [] }, action) => {
       return { loading: false, data: action.payload };
     case "DASHBOARD_REQUEST_FAIL":
       return { loading: false, error: action.payload };
+
     default:
       return state;
   }
