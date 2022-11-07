@@ -19,14 +19,13 @@ router.post("/login", async (req, res, next) => {
       where: { email: req.body.email },
     });
 
-    const profile = await Profile.findOne({
-      where: { user_id: user.id },
-    });
-
-    if (user && profile) {
+    if (user) {
       const password = req.body.password;
       const password_valid = await bcrypt.compare(password, user.password);
-      if (password_valid) {
+      const profile = await Profile.findOne({
+        where: { user_id: user.id },
+      });
+      if (password_valid && profile) {
         res.status(200).json({
           id: user.id,
           first_name: user.first_name,

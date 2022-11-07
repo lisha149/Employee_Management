@@ -27,8 +27,9 @@ router.get("/dashboard", isAuth, async (req, res, next) => {
 
   var todayDate = today.toLocaleDateString();
   console.log(todayDate);
+  const profile = req.profile;
 
-  if (isYourBirthday) {
+  if (isYourBirthday && profile) {
     if (req.user.last_logged_in == null && employeeCount && departmentCount) {
       const user = await User.findOne({
         attributes: ["id", "last_logged_in"],
@@ -39,14 +40,16 @@ router.get("/dashboard", isAuth, async (req, res, next) => {
 
       user.last_logged_in = today;
       await user.save();
-      res.status(200).json({ departmentCount, employeeCount, popupMessage });
+      res
+        .status(200)
+        .json({ departmentCount, employeeCount, popupMessage, profile });
     } else if (todayDate == req.user.last_logged_in.toLocaleDateString()) {
-      res.status(200).json({ employeeCount, departmentCount });
+      res.status(200).json({ employeeCount, departmentCount, profile });
     } else {
-      res.status(200).json({ employeeCount, departmentCount });
+      res.status(200).json({ employeeCount, departmentCount, profile });
     }
   } else {
-    res.status(200).json({ employeeCount, departmentCount });
+    res.status(200).json({ employeeCount, departmentCount, profile });
   }
 });
 

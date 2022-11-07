@@ -2,7 +2,10 @@ var express = require("express");
 var router = express.Router();
 const Models = require("./../models");
 const Department = Models.departments;
+const User = Models.users;
+const Profile = Models.profiles;
 const { isAuth, isAdmin } = require("../middleware/authMiddleware");
+
 //Create
 router.post("/department", isAdmin, async (req, res, next) => {
   const title = req.body.title;
@@ -55,6 +58,28 @@ router.delete("/department/:id", isAdmin, async (req, res) => {
   if (department) {
     await department.destroy();
     res.json({ message: "Department Deleted" });
+  } else {
+    res.status(404).json({ message: "Department not found" });
+  }
+});
+//Get department members
+router.get("/departments/:id", isAuth, async (req, res, next) => {
+  const department = await Department.findByPk(req.params.id);
+
+  if (department) {
+    const employees = await User.findAll({
+      where: { department_id: department.id },
+    });
+
+    if (employees) {
+      res.json({
+        id: department.id,
+        title: department.title,
+        members: employees,
+      });
+    } else {
+      res.status(404).json({ message: "Employee not found" });
+    }
   } else {
     res.status(404).json({ message: "Department not found" });
   }
