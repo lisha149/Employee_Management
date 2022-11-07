@@ -5,7 +5,6 @@ var usersRouter = require("./routes/userRoutes");
 var deptRouter = require("./routes/deptRoutes");
 var leaveRouter = require("./routes/leaveRoutes");
 var profileRouter = require("./routes/profileRoutes");
-var birthdayRouter = require("./routes/birthdayRoutes");
 var dashboardRouter = require("./routes/dashboardRoutes");
 const { notFound } = require("./middleware/error");
 const app = express();
@@ -21,7 +20,6 @@ app.use("/api", usersRouter);
 app.use("/api", deptRouter);
 app.use("/api", leaveRouter);
 app.use("/api", profileRouter);
-app.use("/api", birthdayRouter);
 app.use("/api", dashboardRouter);
 app.use(notFound);
 
