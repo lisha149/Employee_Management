@@ -18,6 +18,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addEmployees } from "../../../actions/employeeActions";
 import { listDepartments } from "../../../actions/departmentActions";
 import { useNavigate } from "react-router-dom";
+import Error from "../../../components/Error";
+import Loading from "../../../components/Loading";
 
 const Register = () => {
   const paperStyle = {
@@ -56,8 +58,6 @@ const Register = () => {
   const navigate = useNavigate();
 
   const submitHandler = (values) => {
-    console.log(values);
-    console.log(values.department_id);
     dispatch(addEmployees(values, department_id));
     navigate("/employee");
     window.location.reload();
@@ -66,7 +66,6 @@ const Register = () => {
 
   const handleChange = (e) => {
     setDepartmentId(e.target.value);
-    console.log(e.target.value);
   };
 
   useEffect(() => {

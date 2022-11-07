@@ -17,7 +17,7 @@ export const listEmployees = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(`/api/employees`, config);
-    console.log(data);
+    // console.log(data);
 
     dispatch({
       type: "EMPLOYEES_LIST_SUCCESS",
@@ -81,7 +81,6 @@ export const addEmployees =
           Authorization: `Bearer ${userInfo.token}`,
         },
       };
-      console.log(values.department_id);
       const registerData = {
         first_name: values.firstname,
         last_name: values.lastname,
@@ -91,7 +90,7 @@ export const addEmployees =
         department_id,
       };
       const { data } = await axios.post("/api/employee", registerData, config);
-      console.log(data);
+      // console.log(data);
       dispatch({ type: "EMPLOYEE_CREATE_SUCCESS", payload: data });
     } catch (error) {
       dispatch({
@@ -192,7 +191,7 @@ export const listTeams = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(`/api/employee`, config);
-    console.log(data);
+    // console.log(data);
 
     dispatch({
       type: "TEAMS_LIST_SUCCESS",

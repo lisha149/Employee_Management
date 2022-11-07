@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import "./App.css";
 import Main from "./components/Main/Main";
@@ -22,10 +22,11 @@ import MyProfile from "./pages/myProfile/MyProfile";
 import ViewMembers from "./pages/Department/viewMembers/viewMembers";
 import ViewDetails from "./pages/Department/viewDetails/viewDetails";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
+import ProtectedRoute from "./route/protectedRoute";
 function App() {
   const [sidebarOpen, setsidebarOpen] = useState(false);
   const userLogin = useSelector((state) => state.userLogin);
-  const { error, userInfo } = userLogin;
+  const { userInfo } = userLogin;
   const openSidebar = () => {
     setsidebarOpen(true);
   };
@@ -34,38 +35,50 @@ function App() {
   };
   return (
     <BrowserRouter>
-      {userInfo ? (
-        <>
-          <div className="contain">
-            <Navbar sidebarOpen={sidebarOpen} openSidebar={openSidebar} />{" "}
-            <Sidebar sidebarOpen={sidebarOpen} closeSidebar={closeSidebar} />
-            <Sidebar />
-            <Routes>
-              <Route path="/" element={<Main />} exact />
-              <Route path="/employee" element={<GetEmployees />} />
-              <Route path="/department" element={<GetDepartments />} />
-              <Route path="/add-employee" element={<Register />} />
-              <Route path="/add-department" element={<DepartmentCreate />} />
-              <Route path="/employee/:id" element={<UpdateEmployee />} />
-              <Route path="/department/:id" element={<UpdateDepartment />} />
-              <Route path="/departments/:id" element={<ViewMembers />} />
-              <Route path="/apply-leave" element={<ApplyLeave />} />
-              <Route path="/leaves" element={<ViewLeave />} />
-              <Route path="/leave/:id" element={<UpdateLeave />} />
-              <Route path="/leave" element={<MyLeave />} />
-              <Route path="/team" element={<MyTeam />} />
-              <Route path="/profile" element={<MyProfile />} />
-              <Route path="/profile/update" element={<ProfilePage />} />
-              <Route path="/profile/:id" element={<ViewDetails />} />
-              <Route path="*" element={<PageNotFound />} />
-            </Routes>
-          </div>
-        </>
-      ) : (
-        <Routes>
-          <Route path="/" element={<Login />} />
-        </Routes>
-      )}
+      <Fragment>
+        {userInfo ? (
+          <>
+            <div className="contain">
+              <Navbar sidebarOpen={sidebarOpen} openSidebar={openSidebar} />{" "}
+              <Sidebar sidebarOpen={sidebarOpen} closeSidebar={closeSidebar} />
+              <Sidebar />
+              <Routes>
+                <Route path="/" element={<Main />} exact />
+
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/add-employee" element={<Register />} />
+                  <Route path="/employee" element={<GetEmployees />} />
+                  <Route path="/department" element={<GetDepartments />} />
+                  <Route
+                    path="/add-department"
+                    element={<DepartmentCreate />}
+                  />
+                  <Route path="/employee/:id" element={<UpdateEmployee />} />
+                  <Route
+                    path="/department/:id"
+                    element={<UpdateDepartment />}
+                  />
+                  <Route path="/leave/:id" element={<UpdateLeave />} />
+                  <Route path="/leaves" element={<ViewLeave />} />
+                </Route>
+
+                <Route path="/departments/:id" element={<ViewMembers />} />
+                <Route path="/apply-leave" element={<ApplyLeave />} />
+                <Route path="/leave" element={<MyLeave />} />
+                <Route path="/team" element={<MyTeam />} />
+                <Route path="/profile" element={<MyProfile />} />
+                <Route path="/profile/update" element={<ProfilePage />} />
+                <Route path="/profile/:id" element={<ViewDetails />} />
+                <Route path="*" element={<PageNotFound />} />
+              </Routes>
+            </div>
+          </>
+        ) : (
+          <Routes>
+            <Route path="/" element={<Login />} />
+          </Routes>
+        )}
+      </Fragment>
     </BrowserRouter>
   );
 }

@@ -10,6 +10,7 @@ import DialogActions from "@mui/material/DialogActions";
 import Dialog from "@mui/material/Dialog";
 import { useParams } from "react-router-dom";
 import "./UpdateLeave.css";
+import Error from "../../../components/Error";
 
 const UpdateLeave = () => {
   const { id } = useParams();
@@ -44,16 +45,16 @@ const UpdateLeave = () => {
   const navigate = useNavigate();
   const rejectHandler = (e) => {
     e.preventDefault();
-    if (!rejected_reason) return;
-    console.log(id);
+    // console.log(id);
     dispatch(updateLeave(id, status, rejected_reason));
-    navigate("/leave");
-    // dispatch(listLeaves());
+    navigate("/leaves");
   };
   return (
     <div className="createReasonContainer">
       <Card>
         <Form>
+          {error && <Error variant="danger"> {error}</Error>}
+          {success && <Error variant="success">Leave Rejected!!</Error>}
           <Form.Group controlId="reason">
             <Form.Label>Rejected Reason: </Form.Label>
             <Form.Control
@@ -92,10 +93,10 @@ const UpdateLeave = () => {
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button variant="outlined" onClick={handleClose}>
+              <Button variant="info" onClick={handleClose}>
                 Cancel
               </Button>
-              <Button variant="outlined" onClick={rejectHandler}>
+              <Button variant="danger" onClick={rejectHandler}>
                 Reject
               </Button>
             </DialogActions>

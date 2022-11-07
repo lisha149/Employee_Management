@@ -21,7 +21,7 @@ const MyProfile = () => {
 
   const navigate = useNavigate();
   const id = `${userInfo.department_id}`;
-  console.log(id);
+  // console.log(id);
   useEffect(() => {
     dispatch(myProfile());
     dispatch(members(id));
@@ -129,7 +129,12 @@ const MyProfile = () => {
                             type="submit"
                             href={`/profile/${value.id}`}
                             variant="primary"
+                            className="btn-sm"
                           >
+                            <i
+                              className="fa fa-eye"
+                              style={{ marginRight: 5 }}
+                            ></i>
                             View Details
                           </Button>
                         </div>

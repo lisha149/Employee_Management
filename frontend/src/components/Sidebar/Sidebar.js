@@ -55,8 +55,8 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
       <div className="sidebar__menu">
         <div className="sidebar__link">
           <i className="fa fa-home"></i>
-          <Link
-            href="/"
+          <NavLink
+            to="/"
             id="dashboard"
             className={
               activeMenu === "dashboard" ? "active_menu_link" : "menu_link"
@@ -65,23 +65,45 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
               setActiveMenu("dashboard");
             }}
           >
+            {" "}
             Dashboard
-          </Link>
+          </NavLink>
         </div>
         {userInfo.is_admin === true ? (
           <div>
             <div className="sidebar__link">
               <i className="fa fa-users"></i>
-              <Link href="/employee">Employees</Link>
+              <NavLink
+                to="/employee"
+                style={({ isActive }) => ({
+                  color: isActive ? "white" : "#a5aaad",
+                })}
+              >
+                Employees
+              </NavLink>
             </div>
             <div className="sidebar__link">
               <i className="fa fa-plus"></i>
-              <Link href="/department">Departments</Link>
+              <NavLink
+                to="/department"
+                style={({ isActive }) => ({
+                  color: isActive ? "white" : "#a5aaad",
+                })}
+              >
+                Departments
+              </NavLink>
             </div>
             <h3>Leaves</h3>
             <div className="sidebar__link">
               <i className="fa fa-question"></i>
-              <Link href="/leaves">Requests</Link>
+              <NavLink
+                to="/leaves"
+                style={({ isActive }) => ({
+                  color: isActive ? "white" : "#a5aaad",
+                })}
+              >
+                Requests
+              </NavLink>
             </div>
           </div>
         ) : (
@@ -89,30 +111,59 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
             <h3>TEAM</h3>
             <div className="sidebar__link">
               <i className="fa fa-users"></i>
-              <Link href="/team">My Team</Link>
+              <NavLink
+                to="/team"
+                style={({ isActive }) => ({
+                  color: isActive ? "white" : "#a5aaad",
+                })}
+              >
+                My Team
+              </NavLink>
             </div>
             <h3>LEAVE</h3>
             <div className="sidebar__link">
               <i className="fa fa-files-o"></i>
-              <Link href="/apply-leave">Apply for leave</Link>
+              <NavLink
+                to="/apply-leave"
+                style={({ isActive }) => ({
+                  color: isActive ? "white" : "#a5aaad",
+                })}
+              >
+                Apply for leave
+              </NavLink>
             </div>
 
             <div className="sidebar__link">
               <i className="fa fa-calendar-check-o"></i>
-              <Link href="/leave">My Leaves</Link>
+              <NavLink
+                to="leave"
+                style={({ isActive }) => ({
+                  color: isActive ? "white" : "#a5aaad",
+                })}
+              >
+                My Leaves
+              </NavLink>
             </div>
           </div>
         )}
         <h3>PROFILE</h3>
         <div className="sidebar__link">
-          <i className="fa fa-user"></i> <Link href="/profile">My Profile</Link>
+          <i className="fa fa-user"></i>
+          <NavLink
+            to="/profile"
+            style={({ isActive }) => ({
+              color: isActive ? "white" : "#a5aaad",
+            })}
+          >
+            My Profile
+          </NavLink>
         </div>
         <div className="sidebar__logout">
           <i className="fa fa-power-off"></i>
-          <a href="#" role="button" onClick={handleClickOpen}>
+          <NavLink to="#" role="button" onClick={handleClickOpen}>
             {" "}
             Log out
-          </a>
+          </NavLink>
           <Dialog
             hideBackdrop
             open={open}

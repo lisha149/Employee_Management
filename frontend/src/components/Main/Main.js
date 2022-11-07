@@ -2,7 +2,6 @@ import "./Main.css";
 import hello from "../../assets/hello.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { dashboardActions } from "../../actions/dashboardActions";
-import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -15,13 +14,12 @@ const Main = () => {
   const dashboard = useSelector((state) => state.dashboard);
   const { data } = dashboard;
 
-  const navigate = useNavigate();
   useEffect(() => {
     dispatch(dashboardActions());
     if (data.popupMessage) {
       toast(`${data.popupMessage}`);
     }
-  }, [dispatch, userInfo]);
+  }, [dispatch]);
 
   return (
     <main>
@@ -35,11 +33,7 @@ const Main = () => {
             <p>Welcome to your dashboard</p>
           </div>
           <br />
-          <ToastContainer
-            autoClose={10000}
-            closeButton={true}
-            position="top-center"
-          />
+          <ToastContainer closeButton={true} position="top-center" />
         </div>
 
         {/* <!-- MAIN TITLE ENDS HERE --> */}

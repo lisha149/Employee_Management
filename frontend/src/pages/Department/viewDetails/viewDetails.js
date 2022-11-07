@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { profileById } from "../../../actions/userActions";
+import { members } from "../../../actions/departmentActions";
+import axios from "axios";
 import "./viewDetails.css";
 
 const ViewDetails = () => {
@@ -10,10 +12,34 @@ const ViewDetails = () => {
   const dispatch = useDispatch();
   const profileList = useSelector((state) => state.profileList);
   const { profile = {} } = profileList;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  const department_id = `${userInfo.department_id}`;
+
+  const departmentMember = useSelector((state) => state.departmentMember);
+  const { departmentDetails } = departmentMember;
 
   useEffect(() => {
     dispatch(profileById(id));
   }, [dispatch, id]);
+
+  const [title, setTitle] = useState("");
+  useEffect(() => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const fetching = async () => {
+      const { data } = await axios.get(
+        `/api/department/${department_id}`,
+        config
+      );
+      setTitle(data.title);
+    };
+    fetching();
+    dispatch(members(department_id));
+  }, [dispatch, department_id]);
 
   return (
     <main>
@@ -89,6 +115,44 @@ const ViewDetails = () => {
               </Card.Subtitle>
             </Card.Body>
           </Card>
+
+          <div className="card_right">
+            <div className="card_title">
+              <h4>{title}</h4>
+              <div>
+                {departmentDetails?.map((value, index) => {
+                  return (
+                    <div key={index} className="details">
+                      <img src={value.profile_pic} alt="" />
+
+                      <div>
+                        <div>
+                          <span>
+                            <b>
+                              {value.first_name} {value.last_name}
+                            </b>
+                          </span>
+                          <br />
+                          <span>{value.email}</span>
+                        </div>
+                        <div>
+                          <Button
+                            type="submit"
+                            href={`/profile/${value.id}`}
+                            variant="primary"
+                            className="btn-sm"
+                          >
+                            <i class="fa fa-eye" style={{ marginRight: 5 }}></i>
+                            View Details
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>

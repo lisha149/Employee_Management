@@ -7,7 +7,7 @@ import { members } from "../../../actions/departmentActions";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Error from "../../../components/Error";
-import Loading from "../../../components/Loading";
+
 const ViewMembers = () => {
   const { id } = useParams();
   const [title, setTitle] = useState("");
@@ -15,7 +15,7 @@ const ViewMembers = () => {
   const dispatch = useDispatch();
 
   const departmentMember = useSelector((state) => state.departmentMember);
-  const { departmentDetails, error, loading } = departmentMember;
+  const { departmentDetails, error } = departmentMember;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -38,7 +38,6 @@ const ViewMembers = () => {
     <main>
       <div className="main__container">
         <div className="main_member_content">
-          {loading && <Loading />}
           {error && <Error variant="error">{error}</Error>}
           <div className="detail_card_left">
             <div className="left_card_title">
@@ -54,10 +53,13 @@ const ViewMembers = () => {
                 {departmentDetails?.map((value, index) => {
                   return (
                     <div key={index} className="data">
+                      <img src={value.profile_pic} alt="" />
                       <div>
                         <div>
                           <span>
-                            {value.first_name} {value.last_name}
+                            <b>
+                              {value.first_name} {value.last_name}
+                            </b>
                           </span>
                           <br />
                           <span>{value.email}</span>
@@ -67,7 +69,9 @@ const ViewMembers = () => {
                             type="submit"
                             href={`/profile/${value.id}`}
                             variant="primary"
+                            className="btn-sm"
                           >
+                            <i class="fa fa-eye" style={{ marginRight: 5 }}></i>
                             View Details
                           </Button>
                         </div>

@@ -22,8 +22,7 @@ const DepartmentCreate = () => {
     e.preventDefault();
     dispatch(addDepartments(title));
     resetHandler();
-    // navigate("/department");
-    // window.location.reload();
+    navigate("/department");
   };
   useEffect(() => {}, []);
   return (

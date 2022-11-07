@@ -49,7 +49,6 @@ const GetDepartments = () => {
   return (
     <form className="flex-container">
       {errorDelete && <Error variant="danger">{errorDelete}</Error>}
-      {successDelete && <Error variant="success">{successDelete}</Error>}
       <div className="add_button">
         <a href="/add-department" onClick={DepartmentCreate}>
           <Button variant="primary">Add Department</Button>
@@ -102,7 +101,7 @@ const GetDepartments = () => {
                     </DialogContentText>
                   </DialogContent>
                   <DialogActions>
-                    <Button variant="outlined" onClick={handleClose}>
+                    <Button variant="info" onClick={handleClose}>
                       Cancel
                     </Button>
                     <Button

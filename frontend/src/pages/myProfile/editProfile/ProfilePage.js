@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, Toast } from "react-bootstrap";
 import "./ProfilePage.css";
 import { useDispatch, useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { updateProfile } from "../../../actions/userActions";
 import { useNavigate } from "react-router-dom";
 import Error from "../../../components/Error";
@@ -87,6 +89,7 @@ const ProfilePage = () => {
         profile_pic,
       })
     );
+    toast("success");
   };
   const cancelHandler = () => {
     navigate("/profile");
@@ -101,11 +104,16 @@ const ProfilePage = () => {
             <Row className="profileContainer">
               <Col md={6}>
                 <Form onSubmit={submitHandler}>
-                  {/* {loading && <Loading />} */}
                   {success && (
                     <Error variant="success">
                       Profile Updated Successfully
                     </Error>
+                  )}
+                  {success && (
+                    <ToastContainer
+                      closeButton={true}
+                      position="bottom-right"
+                    />
                   )}
                   {error && <Error variant="danger">{error}</Error>}
                   <h4>

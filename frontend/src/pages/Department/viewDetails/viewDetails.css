@@ -8,8 +8,9 @@ main {
 }
 .main__profile__card {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  width: 100%;
+  grid-template-columns: 1fr 0.3fr;
+  gap: 30px;
+  margin-top: 50px;
 }
 #card5 {
   display: flex;
@@ -41,4 +42,34 @@ h5 {
 }
 div {
   margin-bottom: 6px;
+}
+
+.card_right {
+  padding: 25px;
+  border-radius: 5px;
+  background: #ffffff;
+  box-shadow: 5px 5px 13px #ededed, -5px -5px 13px #ffffff;
+}
+.card_title {
+  width: 70%;
+  border-radius: 0.7rem;
+  padding: 1rem;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.details {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 5px;
+  margin-left: 25px;
+}
+.details > img {
+  margin-left: 8px;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #ccc;
 }

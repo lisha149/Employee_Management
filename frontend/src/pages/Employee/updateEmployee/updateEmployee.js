@@ -122,7 +122,7 @@ const UpdateEmployee = () => {
   };
   const handleChange = (e) => {
     setDeptid(e.target.value);
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
   const cancelHandler = () => {
     navigate("/employee");

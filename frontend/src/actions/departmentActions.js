@@ -81,7 +81,7 @@ export const addDepartments = (title) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.post("/api/department", { title }, config);
-    console.log(data);
+    // console.log(data);
     dispatch({ type: "DEPARTMENT_CREATE_SUCCESS", payload: data });
   } catch (error) {
     dispatch({
@@ -116,7 +116,7 @@ export const updateDepartment = (id, title) => async (dispatch, getState) => {
       { title },
       config
     );
-    console.log(data);
+    // console.log(data);
     dispatch({
       type: "DEPARTMENTS_UPDATE_SUCCESS",
       payload: data,
@@ -150,12 +150,10 @@ export const members = (id) => async (dispatch, getState) => {
 
     const { data } = await axios.get(`/api/departments/${id}`, config);
 
-    console.log(data);
-    const result = data.members;
-    console.log(result);
+    // console.log(data);
     dispatch({
       type: "DEPARTMENT_MEMBERS_SUCCESS",
-      payload: result,
+      payload: data,
     });
   } catch (error) {
     dispatch({

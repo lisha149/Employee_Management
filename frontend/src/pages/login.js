@@ -60,45 +60,41 @@ const Login = () => {
           onSubmit={submitHandler}
           validationSchema={validationSchema}
         >
-          {(props) => (
-            <Form>
-              {/* {console.log(props)} */}
-              <Field
-                as={TextField}
-                variant="standard"
-                label="Email"
-                name="email"
-                placeholder="Enter email"
-                type="email"
-                autoComplete="current-email"
-                fullWidth
-                required
-                helperText={<ErrorMessage name="email" />}
-              />
-              <Field
-                as={TextField}
-                variant="standard"
-                label="Password"
-                name="password"
-                placeholder="Enter password"
-                type="password"
-                autoComplete="current-password"
-                fullWidth
-                required
-                helperText={<ErrorMessage name="password" />}
-              />
-              <Button
-                type="submit"
-                color="primary"
-                variant="contained"
-                style={btnstyle}
-                fullWidth
-              >
-                Login
-              </Button>
-              {/* {console.log(props)} */}
-            </Form>
-          )}
+          <Form>
+            <Field
+              as={TextField}
+              variant="standard"
+              label="Email"
+              name="email"
+              placeholder="Enter email"
+              type="email"
+              autoComplete="current-email"
+              fullWidth
+              required
+              helperText={<ErrorMessage name="email" />}
+            />
+            <Field
+              as={TextField}
+              variant="standard"
+              label="Password"
+              name="password"
+              placeholder="Enter password"
+              type="password"
+              autoComplete="current-password"
+              fullWidth
+              required
+              helperText={<ErrorMessage name="password" />}
+            />
+            <Button
+              type="submit"
+              color="primary"
+              variant="contained"
+              style={btnstyle}
+              fullWidth
+            >
+              Login
+            </Button>
+          </Form>
         </Formik>
       </Paper>
     </Grid>

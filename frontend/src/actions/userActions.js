@@ -43,7 +43,7 @@ export const myProfile = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(`/api/profile`, config);
-    console.log(data);
+    // console.log(data);
 
     dispatch({ type: "MY_PROFILE_SUCCESS", payload: data });
     localStorage.setItem("userProfileInfo", JSON.stringify(data));
@@ -102,7 +102,7 @@ export const updateProfile =
         },
         config
       );
-      console.log(data);
+      // console.log(data);
 
       dispatch({ type: "USER_PROFILE_UPDATE_SUCCESS", payload: data });
       dispatch({ type: "MY_PROFILE_SUCCESS", payload: data });

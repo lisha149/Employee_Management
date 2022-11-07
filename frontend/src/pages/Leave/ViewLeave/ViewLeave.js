@@ -24,8 +24,7 @@ const ViewLeave = () => {
   const navigate = useNavigate();
 
   const approveHandler = (id) => {
-    // e.preventDefault();
-    console.log(id);
+    // console.log(id);
     dispatch(updateLeave(id, status, rejected_reason));
     toast("Success");
     window.location.reload();
@@ -44,6 +43,7 @@ const ViewLeave = () => {
       <table id="leaves">
         <thead>
           <tr>
+            <th>Applicant Name</th>
             <th>Leave Reason</th>
             <th>Start Date</th>
             <th>End Date</th>
@@ -55,6 +55,7 @@ const ViewLeave = () => {
         <tbody>
           {leaves?.map((leave) => (
             <tr key={leave.id}>
+              <td>{leave.applicant_name}</td>
               <td>{leave.reason}</td>
               <td>{leave.start_date}</td>
               <td>{leave.end_date}</td>

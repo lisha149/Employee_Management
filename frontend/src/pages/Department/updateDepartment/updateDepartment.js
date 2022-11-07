@@ -51,7 +51,9 @@ const UpdateDepartment = () => {
   const resetHandler = () => {
     setTitle("");
   };
-
+  const cancelHandler = () => {
+    navigate("/department");
+  };
   return (
     <main>
       <div className="main_container">
@@ -76,7 +78,7 @@ const UpdateDepartment = () => {
                   style={{ flexDirection: "row", marginTop: 10 }}
                   onClick={updateHandler}
                 >
-                  Add
+                  Save Changes
                 </Button>
                 <Button
                   className="mx-2"
@@ -85,6 +87,14 @@ const UpdateDepartment = () => {
                   style={{ flexDirection: "row", marginTop: 10 }}
                 >
                   Clear
+                </Button>
+                <Button
+                  className="mx-2"
+                  onClick={cancelHandler}
+                  variant="info"
+                  style={{ flexDirection: "row", marginTop: 10 }}
+                >
+                  Cancel
                 </Button>
               </Form>
             </Card.Body>

@@ -21,7 +21,7 @@ export const addLeaves =
         { leave_reason, start_date, end_date, email, user_id },
         config
       );
-      console.log(data);
+      // console.log(data);
       dispatch({ type: "LEAVE_CREATE_SUCCESS", payload: data });
     } catch (error) {
       dispatch({
@@ -51,7 +51,7 @@ export const listLeaves = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(`/api/leaves`, config);
-    console.log(data);
+    // console.log(data);
 
     dispatch({
       type: "LEAVE_LIST_SUCCESS",
@@ -124,7 +124,7 @@ export const ownListLeaves = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(`/api/leave`, config);
-    console.log(data);
+    // console.log(data);
 
     dispatch({
       type: "OWN_LEAVE_LIST_SUCCESS",

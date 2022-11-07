@@ -15,11 +15,12 @@ import { Button } from "react-bootstrap";
 import Error from "../../../components/Error";
 import Register from "../addEmployee/addEmployee";
 import UpdateEmployee from "../updateEmployee/updateEmployee";
+import Loading from "../../../components/Loading";
 
 const GetEmployees = () => {
   const dispatch = useDispatch();
   const employeeList = useSelector((state) => state.employeeList);
-  const { employees } = employeeList;
+  const { employees, error, loading } = employeeList;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -57,6 +58,7 @@ const GetEmployees = () => {
           </Button>
         </a>
       </div>
+      {error && <Error variant="danger">{error}</Error>}
       {errorDelete && <Error>{errorDelete}</Error>}
       <table id="employees">
         <thead>

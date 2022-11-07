@@ -12,7 +12,7 @@ export const dashboardActions = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(`/api/dashboard`, config);
-    console.log(data);
+    // console.log(data);
 
     dispatch({
       type: "DASHBOARD_REQUEST_SUCCESS",
