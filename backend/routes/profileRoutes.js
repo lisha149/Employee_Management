@@ -149,6 +149,17 @@ router.get("/profile/:id", isAuth, async (req, res, next) => {
     res.status(404).json({ message: "Profile not found" });
   }
 });
+//Get profile by user id
+router.get("/profiles/:id", isAuth, async (req, res, next) => {
+  const employee = await User.findByPk(req.params.id);
+  const profile = await Profile.findOne({ where: { user_id: employee.id } });
+
+  if (profile && employee) {
+    res.json(profile);
+  } else {
+    res.status(404).json({ message: "Profile not found" });
+  }
+});
 //Get all profiles
 router.get("/profiles", isAuth, async (req, res, next) => {
   const profiles = await Profile.findAll();

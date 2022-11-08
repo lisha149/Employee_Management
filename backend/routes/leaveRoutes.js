@@ -78,7 +78,7 @@ router.get("/leaves", isAdmin, async (req, res, next) => {
     });
   });
   if (leaves) {
-    res.json(userLeaveData);
+    res.json(employeeLeaveData);
   } else {
     res.status(404).json({ message: "Leave not found" });
   }
