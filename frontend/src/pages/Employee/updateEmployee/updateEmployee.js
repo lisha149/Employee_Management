@@ -51,7 +51,7 @@ const UpdateEmployee = () => {
         },
       };
       const fetching = async () => {
-        const { data } = await axios.get(`/api/profile/${id}`, config);
+        const { data } = await axios.get(`/api/profiles/${id}`, config);
         setFirstname(data.first_name);
         setLastname(data.last_name);
         setDeptid(data.department_id);
