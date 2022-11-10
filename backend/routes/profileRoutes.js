@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.route("/profile").patch(editProfile);
 router.route("/profile/:id").patch(isAdmin, editProfileByAdmin);
-router.route("/profile/:id").get(isAuth, viewProfile);
+router.route("/profiles/:id").get(isAuth, viewProfile);
 router.route("/profile/:id").get(isAuth, getProfileById);
 router.route("/profiles").get(isAuth, getAllProfiles);
 router.route("/profile").get(isAuth, userProfile);
