@@ -1,11 +1,11 @@
 require("dotenv").config();
 const express = require("express");
 const db = require("./models/index");
-var usersRouter = require("./routes/userRoutes");
-var deptRouter = require("./routes/deptRoutes");
-var leaveRouter = require("./routes/leaveRoutes");
-var profileRouter = require("./routes/profileRoutes");
-var dashboardRouter = require("./routes/dashboardRoutes");
+const usersRouter = require("./routes/userRoutes");
+const deptRouter = require("./routes/deptRoutes");
+const leaveRouter = require("./routes/leaveRoutes");
+const profileRouter = require("./routes/profileRoutes");
+const dashboardRouter = require("./routes/dashboardRoutes");
 const { notFound } = require("./middleware/error");
 const app = express();
 
