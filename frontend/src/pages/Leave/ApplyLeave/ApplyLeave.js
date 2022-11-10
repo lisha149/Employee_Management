@@ -25,7 +25,7 @@ const ApplyLeave = () => {
   const dispatch = useDispatch();
 
   const leaveCreate = useSelector((state) => state.leaveCreate);
-  const { error, leave } = leaveCreate;
+  const { error, leave, success } = leaveCreate;
   const navigate = useNavigate();
   const submitHandler = (e) => {
     e.preventDefault();
@@ -40,6 +40,9 @@ const ApplyLeave = () => {
         <div className="leave_content">
           <Card id="card2" border="light">
             {error && <Error variant="danger">{error}</Error>}
+            {success && (
+              <Error variant="primary">Leave applied successfully</Error>
+            )}
             <Card.Header>Apply leave</Card.Header>
             <Card.Body>
               <Form onSubmit={submitHandler}>

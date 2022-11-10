@@ -16,9 +16,9 @@ export const leaveCreateReducer = (state = {}, action) => {
     case "LEAVE_CREATE_REQUEST":
       return { loading: true };
     case "LEAVE_CREATE_SUCCESS":
-      return { loading: false, leave: action.payload };
+      return { loading: false, leave: action.payload, success: true };
     case "LEAVE_CREATE_FAIL":
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.payload, success: false };
     default:
       return state;
   }

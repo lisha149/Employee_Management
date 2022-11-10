@@ -43,7 +43,7 @@ const MyProfile = () => {
             <Card.Body className="pb-3">
               <Card.Img
                 id="profile-pic"
-                src={`${userInfo.profile_pic}`}
+                src={`${userProfileInfo.profile_pic}`}
                 alt="Profile pic"
                 className="user-avatar rounded-circle mx-auto mt-n7"
               />
@@ -116,6 +116,8 @@ const MyProfile = () => {
                 {departmentDetails?.map((value, index) => {
                   return (
                     <div key={index} className="details">
+                      <img src={value.profile_pic} alt="" />
+
                       <div>
                         <div>
                           <span>

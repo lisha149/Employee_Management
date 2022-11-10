@@ -60,3 +60,11 @@ h5 {
   gap: 0.5rem;
   margin-bottom: 5px;
 }
+.details > img {
+  margin-left: 8px;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #ccc;
+}

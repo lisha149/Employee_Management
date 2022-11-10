@@ -19,7 +19,7 @@ const Main = () => {
     if (data.popupMessage) {
       toast(`${data.popupMessage}`);
     }
-  }, [dispatch, data]);
+  }, [dispatch]);
 
   return (
     <main>
