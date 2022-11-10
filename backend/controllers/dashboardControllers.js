@@ -26,7 +26,8 @@ const getDashboard = asyncHandler(async (req, res) => {
   try {
     if (isYourBirthday) {
       if (
-        req.user.last_logged_in != todayDate &&
+        (req.user.last_logged_in == null ||
+          todayDate == req.user.last_logged_in) &&
         employeeCount &&
         departmentCount
       ) {
